@@ -18,6 +18,7 @@
 
 
 ## Equipe :handshake:
+* [Arthur Lima](https://github.com/RATARIA)
 * [Esdras Pedro](https://github.com/EsdrasPedro)
 * [Giovanna do Nacimento](https://github.com/Giovannanascimento)
 * [Gleydson José](https://github.com/Gjss333)
@@ -26,3 +27,4 @@
 * [Huanderson Lima](https://github.com/huandersonlima)
 * [Ingrid Farias](https://github.com/Ingrid-st)
 * [Thierry Matheus](https://github.com/ThierryMatheus)
+
