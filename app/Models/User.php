@@ -44,6 +44,12 @@ class User extends Authenticatable
 
     public function company_profile()
     {
-        return $this->hasOne(App\Models\company_profile);
+        return $this->hasOne(company_profile::class);
     }
+
+    public function user_profile()
+    {
+        return $this->hasOne(user_profile::class);
+    }
+
 }
