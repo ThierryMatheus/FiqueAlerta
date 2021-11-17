@@ -22,6 +22,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+Route::get('/criar-denuncia', function () {
+    return view('denuncia.create');
+})->middleware(['auth'])->name('denunciar');
+
 Route::resource('/denuncia', DenunciaController::class);
 
 require __DIR__.'/auth.php';
