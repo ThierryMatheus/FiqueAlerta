@@ -28,4 +28,7 @@ Route::get('/criar-denuncia', function () {
 
 Route::resource('/denuncia', DenunciaController::class);
 
+
+Route::post('/denuncia/create' , [DenunciaController::class, 'store'])->middleware(['auth'])->name('criar_denuncia');
+
 require __DIR__.'/auth.php';

@@ -19,7 +19,7 @@ class CreateCategoriesComplaintTable extends Migration
             $table->foreignId('categories_id')
                   ->constrained('categories');
             $table->foreignId('complaint_id')
-                  ->constrained('complaint');
+                  ->constrained('complaints');
         });
     }
 

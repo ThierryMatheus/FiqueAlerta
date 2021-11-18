@@ -13,7 +13,7 @@ class CreateComplaintTable extends Migration
      */
     public function up()
     {
-        Schema::create('complaint', function (Blueprint $table) {
+        Schema::create('complaints', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->string('comment');
@@ -33,6 +33,6 @@ class CreateComplaintTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('complaint');
+        Schema::dropIfExists('complaints');
     }
 }

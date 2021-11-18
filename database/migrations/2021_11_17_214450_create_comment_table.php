@@ -20,7 +20,7 @@ class CreateCommentTable extends Migration
             $table->foreignId('user_id')
                   ->constrained();
             $table->foreignId('complaint_id')
-                  ->constrained('complaint');
+                  ->constrained('complaints');
         });
     }
 

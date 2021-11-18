@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Complaint;
+use App\Models\User;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
 
 class DenunciaController extends Controller
 {
@@ -34,7 +38,18 @@ class DenunciaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Complaint::create([
+            'title' => $request->title,
+            'comment' => $request->comment,
+            'claim_date' => $request->claim_date,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
+            'user_id' => Auth::user()->id
+            ]);
+
+            return Redirect::route('dashboard')
+        ->with('success', 'Denuncia Criada com sucesso');
+
     }
 
     /**
