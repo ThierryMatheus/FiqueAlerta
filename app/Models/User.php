@@ -52,4 +52,9 @@ class User extends Authenticatable
         return $this->hasOne(user_profile::class);
     }
 
+    public function complaint()
+    {
+        return $this->hasMany(complaint::class);
+    }
+
 }
