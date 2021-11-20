@@ -28,7 +28,11 @@ Route::get('/criar-denuncia', function () {
 
 Route::resource('/denuncia', DenunciaController::class);
 
+Route::get('/show', function () {
+    return view('denuncia.show');
+})->middleware(['auth'])->name('show_denuncia');
+
 
 Route::post('/denuncia/create' , [DenunciaController::class, 'store'])->middleware(['auth'])->name('criar_denuncia');
-
+Route::get('/denuncia/{denuncia}', [DenunciaController::class, 'show'])->middleware(['auth'])->name('ver_denuncia');
 require __DIR__.'/auth.php';

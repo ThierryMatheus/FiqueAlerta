@@ -1,8 +1,4 @@
-<?php
 
-$denuncia = App\Models\Complaint::all();
-
-?>
 
 <x-app-layout>
     <x-slot name="header">
@@ -13,11 +9,11 @@ $denuncia = App\Models\Complaint::all();
 
     <div class="min-w-0 flex-auto px-4 sm:px-6 xl:px-8 pt-10 pb-24 lg:pb-16">
       <div class="rounded-t-xl overflow-hidden bg-gradient-to-r from-fuchsia-50 to-fuchsia-100 bg-gray-100 p-8">
-          <div class="grid grid-cols-3 gap-4">  
-            @foreach($denuncia as $d)       
+          <div class="grid grid-cols-3 gap-4">      
+           @foreach(Auth::user()->Complaint as $d)       
             <div class="h-12 flex items-center bg-white rounded-md text-center pl-2">{{$d->title}}</div>
-          @endforeach     
-          <a href="{{route('show_denuncia')}}">Ver denuncias</a>
+          @endforeach
+          <a href="/dashboard">Voltar</a>
           </div>
       </div>    
  </div>

@@ -60,7 +60,10 @@ class DenunciaController extends Controller
      */
     public function show($id)
     {
-        //
+        $denuncia = Auth::user()->complaint;
+    return view('denuncia.show',[
+        'denuncia' => $denuncia
+        ]);
     }
 
     /**
