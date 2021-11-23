@@ -17,7 +17,6 @@ $denuncia = App\Models\Complaint::all();
             @foreach($denuncia as $d)       
             <div class="h-12 flex items-center bg-white rounded-md text-center pl-2">{{$d->title}}</div>
           @endforeach     
-          <a href="{{route('show_denuncia')}}">Ver denuncias</a>
           </div>
       </div>    
  </div>

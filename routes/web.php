@@ -24,6 +24,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+Route::get('/suas-denuncias', function () {
+    return view('denuncia.show');
+})->middleware(['auth'])->name('suas_denuncias');
+
 
 Route::resource('/denuncia', DenunciaController::class);
 Route::resource('/reclamante', ComplainantController::class);

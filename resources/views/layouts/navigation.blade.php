@@ -21,6 +21,11 @@
                         {{ __('Criar Denuncia') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('suas_denuncias')" :active="request()->routeIs('suas_denuncias')">
+                        {{ __('Suas Denuncias') }}
+                    </x-nav-link>
+                </div>
 
                
             </div>
