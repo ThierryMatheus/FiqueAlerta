@@ -43,6 +43,7 @@ class DenunciaController extends Controller
      */
     public function store(Request $request)
     {
+        $this->middleware('auth');
         Complaint::create([
             'title' => $request->title,
             'comment' => $request->comment,
@@ -76,7 +77,8 @@ class DenunciaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $denuncia = Complaint::find($id);
+        return view('denuncia.edit')->with('denuncia', $denuncia);
     }
 
     /**
@@ -88,7 +90,16 @@ class DenunciaController extends Controller
      */
     public function update(Request $request, $id)
     {
-       
+        $denuncia = Complaint::where('id', $id)->update([
+            'title' => $request->input('title'),
+            'comment' => $request->input('comment'),
+            'claim_date' => $request->input('claim_date'),
+            'latitude' => $request->input('latitude'),
+            'longitude' => $request->input('longitude')
+        ]);
+
+        return Redirect::route('denuncia.index')
+        ->with('success', 'Denuncia atualizada com sucesso');
     }
 
     /**

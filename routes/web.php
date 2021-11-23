@@ -24,18 +24,9 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::get('/suas-denuncias', function () {
-    return view('denuncia.show');
-})->middleware(['auth'])->name('suas_denuncias');
-
 
 Route::resource('/denuncia', DenunciaController::class);
 Route::resource('/reclamante', ComplainantController::class);
 
 
-
-
-
-Route::post('/denuncia/create' , [DenunciaController::class, 'store'])->middleware(['auth'])->name('criar_denuncia');
-Route::get('/denuncia/{denuncia}', [DenunciaController::class, 'show'])->middleware(['auth'])->name('ver_denuncia');
 require __DIR__.'/auth.php';

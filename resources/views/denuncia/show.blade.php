@@ -29,7 +29,7 @@
                         <td class="text-center">{{$d->comment}}</td>
                         <td class="text-center">{{$d->latitude}}</td>
                         <td class="text-center">{{$d->longitude}}</td>
-                        <td class="text-green-500"><a href="">Editar</a></td>
+                        <td class="text-green-500"><a href="/denuncia/{{$d->id}}/edit">Editar</a></td>
                         <td class="text-red-500"><a href="">Excluir</a></td>
                     </tr>
                     @endforeach
