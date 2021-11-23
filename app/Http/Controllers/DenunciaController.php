@@ -17,7 +17,11 @@ class DenunciaController extends Controller
      */
     public function index()
     {
-        //
+        $this->middleware('auth');
+        $denuncia = Auth::user()->complaint;
+        return view('denuncia.show',[
+            'denuncia' => $denuncia
+         ]);
     }
 
     /**
@@ -27,7 +31,8 @@ class DenunciaController extends Controller
      */
     public function create()
     {
-        //
+        $this->middleware('auth');
+        return view('denuncia.create');
     }
 
     /**
@@ -60,10 +65,7 @@ class DenunciaController extends Controller
      */
     public function show($id)
     {
-        $denuncia = Auth::user()->complaint;
-    return view('denuncia.show',[
-        'denuncia' => $denuncia
-        ]);
+       
     }
 
     /**
@@ -86,7 +88,7 @@ class DenunciaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+       
     }
 
     /**

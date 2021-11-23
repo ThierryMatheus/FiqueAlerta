@@ -24,17 +24,12 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::get('/criar-denuncia', function () {
-    return view('denuncia.create');
-})->middleware(['auth'])->name('denunciar');
 
 Route::resource('/denuncia', DenunciaController::class);
 Route::resource('/reclamante', ComplainantController::class);
 
 
-Route::get('/show', function () {
-    return view('denuncia.show');
-})->middleware(['auth'])->name('show_denuncia');
+
 
 
 Route::post('/denuncia/create' , [DenunciaController::class, 'store'])->middleware(['auth'])->name('criar_denuncia');
