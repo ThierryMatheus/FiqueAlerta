@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DenunciaController;
+use App\Http\Controllers\ComplainantController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +29,8 @@ Route::get('/criar-denuncia', function () {
 })->middleware(['auth'])->name('denunciar');
 
 Route::resource('/denuncia', DenunciaController::class);
+Route::resource('/reclamante', ComplainantController::class);
+
 
 Route::get('/show', function () {
     return view('denuncia.show');

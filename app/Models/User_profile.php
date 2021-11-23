@@ -12,8 +12,8 @@ class User_profile extends Model
     protected $fillable = [
         'CPF',
         'Address',
-        'Cell_phone',
-        'Birthday',
+        'Cellphone',
+        'Birthdate',
         'user_id'
         
     ];

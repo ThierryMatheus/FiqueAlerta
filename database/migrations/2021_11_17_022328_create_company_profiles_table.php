@@ -17,9 +17,10 @@ class CreateCompanyProfilesTable extends Migration
             $table->id();
             $table->string('Fantasy_name');
             $table->integer('Type');
-            $table->integer('CNPJ');
-            $table->bigInteger('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->string('CNPJ');
+            $table->timestamps();
+            $table->foreignId('user_id')
+                ->constrained();
         });
     }
 

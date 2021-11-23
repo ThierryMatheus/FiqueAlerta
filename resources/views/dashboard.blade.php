@@ -6,9 +6,9 @@ $denuncia = App\Models\Complaint::all();
 
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ Auth::User()->name }}
-        </h2>
+        @if (!Auth::user()->user_profile)
+        <a href="/reclamante/create">Complete seu perfil</a>
+        @endif
     </x-slot>
 
     <div class="min-w-0 flex-auto px-4 sm:px-6 xl:px-8 pt-10 pb-24 lg:pb-16">
