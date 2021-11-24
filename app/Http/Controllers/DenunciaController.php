@@ -44,6 +44,15 @@ class DenunciaController extends Controller
     public function store(Request $request)
     {
         $this->middleware('auth');
+
+        $request->validate([
+            'title' => ['required', 'max:255', 'string'],
+            'comment' => ['required', 'max:255', 'string'],
+            'claim_date' => ['required', 'date'],
+            'latitude' => ['required', 'numeric'],
+            'longitude' => ['required', 'numeric']
+        ]);
+
         Complaint::create([
             'title' => $request->title,
             'comment' => $request->comment,
@@ -66,7 +75,7 @@ class DenunciaController extends Controller
      */
     public function show($id)
     {
-       
+
     }
 
     /**
