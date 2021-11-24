@@ -17,7 +17,7 @@ class ComplainantController extends Controller
      */
     public function index()
     {
-        
+
     }
 
     /**
@@ -38,6 +38,13 @@ class ComplainantController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'cpf' => ['required', 'string', 'max:11', 'unique:user_profiles,cpf'],
+            'address' => ['required', 'string', 'max:255'],
+            'cellphone' => ['required', 'string', 'max:13'],
+            'birthdate' => ['required', 'date']
+        ]);
+
         User_profile::create([
             'CPF' => $request->cpf,
             'Address' => $request->address,
