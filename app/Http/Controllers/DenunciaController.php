@@ -119,6 +119,9 @@ class DenunciaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $denuncia = Complaint::find($id);
+        $denuncia->delete();
+
+        return redirect('/dashboard');
     }
 }

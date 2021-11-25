@@ -27,6 +27,6 @@ Route::get('/dashboard', function () {
 
 Route::resource('/denuncia', DenunciaController::class);
 Route::resource('/reclamante', ComplainantController::class);
-
+Route::delete('/denuncia/{id}', [DenunciaController::class, 'destroy'])->name('excluir_denuncia');
 
 require __DIR__.'/auth.php';
