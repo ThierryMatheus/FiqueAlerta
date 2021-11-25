@@ -6,7 +6,7 @@ $denuncia = App\Models\Complaint::all();
 
 <x-app-layout>
     <x-slot name="header">
-        @if (!Auth::user()->user_profile)
+        @if (!Auth::user()->user_profile && !Auth::user()->company_profile)
         <a href="/reclamante/create">Complete seu perfil</a>
         @endif
     </x-slot>

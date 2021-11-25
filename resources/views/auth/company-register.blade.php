@@ -31,7 +31,7 @@
                 <x-input id="Fantasy_name" class="block mt-1 w-full" type="text" name="company[fantasy_name]" :value="old('fantasy_name')" required />
             </div>
             <div class="mt-4">
-                <x-label for="type" :value="__('Publico/Privavo')" />
+                <x-label for="type" :value="__('Publico/Privado')" />
 
                 <select name="company[type]" id="type" class="block mt-1 w-full">
                     <option value="">Selecionar</option>
