@@ -39,8 +39,9 @@
                 </div>
             </div>
 
-            <div class="flex pt-4 justify-center">
-                <a href="">Entrar com o Google</a>
+            <div class="flex pt-4 justify-center items-center font-bold">
+                <x-social icon="google"/>
+                <a href="" class="mr-5">Entrar com o Google</a>
             </div>
 
             <div class="flex items-center justify-center mt-4">
