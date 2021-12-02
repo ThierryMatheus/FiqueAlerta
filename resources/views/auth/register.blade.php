@@ -60,8 +60,6 @@
                 </a>
             </div>
         </form>
-        <footer>
-            @include('layouts.minfooter')
-        </footer>
     </x-auth-card>
+            @include('layouts.minfooter')
 </x-guest-layout>

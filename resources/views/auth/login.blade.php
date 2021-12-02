@@ -1,7 +1,8 @@
 <x-guest-layout>
+    @include('layouts.header')
     <x-auth-card>
         <x-slot name="logo">
-            <h1 class="text-4xl font-bold flex justify-center p-6 mb-24 mt-10">Fique Alerta</h1>
+            <h1 class="text-4xl font-bold flex justify-center p-6 mb-24 mt-16">Fique Alerta</h1>
         </x-slot>
 
         <!-- Session Status -->
@@ -55,11 +56,9 @@
 
             <!-- Remember Me -->
             <div class="block mt-16 flex justify-center mb-8">
-                <a href="{{ route('register') }}" class="text-blue-750 text-base font-bold">Cadastre-se</a>
+                <a href="{{ route('type') }}" class="text-blue-750 text-base font-bold">Cadastre-se</a>
             </div>
         </form>
-        <footer>
-            @include('layouts.minfooter')
-        </footer>
     </x-auth-card>
+            @include('layouts.minfooter')
 </x-guest-layout>

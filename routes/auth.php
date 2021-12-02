@@ -18,7 +18,10 @@ Route::get('/registercompany', [RegisteredUserController::class, 'create_company
                 ->middleware('guest')
                 ->name('registercompany');
 
-                
+Route::get('/register/type', [RegisteredUserController::class, 'user_type'])
+                ->name('type')
+                ->middleware('guest');
+
 Route::post('/register', [RegisteredUserController::class, 'store'])
                 ->middleware('guest');
 

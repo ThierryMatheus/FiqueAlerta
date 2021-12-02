@@ -28,6 +28,10 @@ class RegisteredUserController extends Controller
         return view('auth.company-register');
     }
 
+    public function user_type() {
+        return view('auth.user-type');
+    }
+
     /**
      * Handle an incoming registration request.
      *

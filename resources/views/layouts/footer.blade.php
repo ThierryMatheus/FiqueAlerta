@@ -1,4 +1,5 @@
-<div class="fixed inset-x-0 bottom-0">
+<footer class="fixed inset-x-0 bottom-0">
+<div>
     <div class=" py-6 pl-24 pb-24">
         <div class="flex flex-col md:flex-row">
             <div class="mb-5">
@@ -13,7 +14,7 @@
                 <h1 class="font-bold text-sm">Empresa</h1><br>
             </div>
             <div class="mx-auto">
-                <h1 class="font-bold text-sm">Plataforma</h1>
+                <h1 class="font-bold text-sm mb-6">Plataforma</h1>
             </div>
             <div class="mx-auto">
                 <h1 class="font-bold text-sm">Suporte</h1>
@@ -21,8 +22,8 @@
         </div>
     </div>
 
-    <div class="flex p-4 bg-blue-750 text-white text-sm pl-32">
-        <h1 class="mt-1.5">&copy; 2021 Fique Alerta, Inc</h1>
+    <div class="flex p-4 bg-blue-750 text-white text-sm">
+        <h1 class="mt-1.5 text-center pl-32">&copy; 2021 Fique Alerta, Inc</h1>
         <div class="flex ml-auto pr-32 space-x-8 items-center">
             <a href=""><x-social icon="twitter"/></a>
             <a href=""><x-social icon="instagram"/></a>
@@ -30,3 +31,4 @@
         </div>
     </div>
 </div>
+</footer>
