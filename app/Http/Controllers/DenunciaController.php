@@ -19,8 +19,8 @@ class DenunciaController extends Controller
     {
         $this->middleware('auth');
         $denuncia = Auth::user()->complaint;
-        return view('denuncia.show',[
-            'denuncia' => $denuncia
+        return view('denuncia.list',[
+            'denuncia' => $denuncia,
          ]);
     }
 
@@ -61,6 +61,8 @@ class DenunciaController extends Controller
             'longitude' => $request->longitude,
             'user_id' => Auth::user()->id
             ]);
+        
+        
 
             return Redirect::route('dashboard')
         ->with('success', 'Denuncia Criada com sucesso');
@@ -75,7 +77,9 @@ class DenunciaController extends Controller
      */
     public function show($id)
     {
-
+        $this->middleware('auth');
+        $denuncia = Complaint::find($id);
+        return view('denuncia.show')->with('denuncia', $denuncia);
     }
 
     /**

@@ -15,7 +15,7 @@
                 <thead>
                     <tr class="bg-gray-200">
                         <th class="px-2">Denúncia</th>
-                        <th class="px-2">Comentário</th>
+                        <th class="px-2">Descrição</th>
                         <th class="px-2">Latitude</th>
                         <th class="px-2">Longitude</th>
                         <th class="px-2"></th>
@@ -23,35 +23,27 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach(Auth::user()->Complaint as $d)
+                    
                     <tr class="border border-gray-200">
-                        <td class="text-center">{{$d->title}}</td>
-                        <td class="text-center">{{$d->comment}}</td>
-                        <td class="text-center">{{$d->latitude}}</td>
-                        <td class="text-center">{{$d->longitude}}</td>
-                        <td class="text-green-500"><a href="/denuncia/{{$d->id}}/edit">Editar</a></td>
-                        <td>
-                            <form action="/denuncia/{{ $d->id }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="text-red-500">Excluir</button>
-                            </form>
-                        </td>
+                        <td class="text-center">{{$denuncia->title}}</td>
+                        <td class="text-center">{{$denuncia->comment}}</td>
+                        <td class="text-center">{{$denuncia->latitude}}</td>
+                        <td class="text-center">{{$denuncia->longitude}}</td>
+
                     </tr>
-                    @endforeach
+                    
                 </tbody>
             </table>
+    
+            <h3>Comentarios:</h3>
+            <form action="">
+              @csrf
+              <x-input type="text" name="comment" class="block mt-1 w-full"/>                
+             <button type="submit" class="text-red-500">Enviar</button>
+            </form>
+
             </div>
        </div>
     </div>
-    <!--div class="min-w-0 flex-auto px-4 sm:px-6 xl:px-8 pt-10 pb-24 lg:pb-16">
-      <div class="rounded-t-xl overflow-hidden bg-gradient-to-r from-fuchsia-50 to-fuchsia-100 bg-gray-100 p-8">
-          <div class="grid grid-cols-3 gap-4">      
-           @foreach(Auth::user()->Complaint as $d)       
-            <div class="h-12 flex items-center bg-white rounded-md text-center pl-2">{{$d->title}}</div>
-          @endforeach
-          <a href="/dashboard">Voltar</a>
-          </div>
-      </div>    
- </div-->
+
 </x-app-layout>
