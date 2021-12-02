@@ -22,11 +22,9 @@
     <div class="flex justify-center mt-24 text-4xl font-bold">
         <h1>Cadastre-se como:</h1>
     </div>
-    <div class="flex mt-72 ml-96 text-2xl">
-        <a href="/register">Consumidor</a>
-    <div class="flex ml-auto mr-72">
-        <a href="/registercompany">Empresa</a>
-    </div>
+    <div class="flex justify-center text-center">
+        <a href="/register" class="mt-64 ml-auto mr-96 text-2xl font-bold"><x-user-type-icon type="consumidor"/>Consumidor</a>
+            <a href="/registercompany" class="mt-64 mr-auto ml-96 text-2xl font-bold"><x-user-type-icon type="empresa"/>Empresa</a>
     </div>
 </main>
 
