@@ -61,8 +61,8 @@ class DenunciaController extends Controller
             'longitude' => $request->longitude,
             'user_id' => Auth::user()->id
             ]);
-        
-        
+
+
 
             return Redirect::route('dashboard')
         ->with('success', 'Denuncia Criada com sucesso');
@@ -103,6 +103,14 @@ class DenunciaController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'title' => ['required', 'max:255', 'string'],
+            'comment' => ['required', 'max:255', 'string'],
+            'claim_date' => ['required', 'date'],
+            'latitude' => ['required', 'numeric'],
+            'longitude' => ['required', 'numeric']
+        ]);
+
         $denuncia = Complaint::where('id', $id)->update([
             'title' => $request->input('title'),
             'comment' => $request->input('comment'),

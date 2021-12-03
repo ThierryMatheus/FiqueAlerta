@@ -2,11 +2,20 @@
     <div class="max-w-5xl mx-auto my-12">
         <div class="bg-white rounded shadow-sm">
            <div class="p-6">
+               @if ($errors->any())
+                   <div class="alert alert-danger text-red-600">
+                       <ul>
+                           @foreach ($errors->all() as $error)
+                               <li>{{ $error }}</li>
+                           @endforeach
+                       </ul>
+                   </div>
+               @endif
                 <form action="/denuncia/{{ $denuncia->id }}" method="POST">
-                     @csrf    
+                     @csrf
                      @method('PUT')
                     <fieldset>
-                         
+
                         <legend class="text-center text-2xl border-b border-gray-800">Editar Denúncia</legend>
 
                         <div class="flex items-center justify-end mt-4">

@@ -1,33 +1,31 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="font-sans flex flex-col text-center sm:flex-row sm:text-left sm:justify-between py-4 px-6 bg-white sm:items-baseline w-full">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
+    <div class="px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between">
             <div class="flex">
                 <!-- Logo -->
-                <div class="flex-shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
+                <div class="mb-2 sm:mb-0">
+                    <a href="/" class="text-2xl font-bold">
+                        {{ __('Fique Alerta') }}
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                <div class="hidden sm:-my-px sm:ml-10 sm:flex items-center">
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" active="false">
                         {{ __('Início') }}
                     </x-nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('denuncia.create')" :active="request()->routeIs('denuncia.create')">
-                        {{ __('Criar Denuncia') }}
+                <div class="hidden sm:-my-px sm:ml-10 sm:flex items-center">
+                    <x-nav-link :href="route('denuncia.create')" :active="request()->routeIs('denuncia.create')" active="false">
+                        {{ __('Criar Denúncia') }}
                     </x-nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('denuncia.index')" :active="request()->routeIs('denuncia.index')">
-                        {{ __('Suas Denuncias') }}
+                <div class="hidden sm:-my-px sm:ml-10 sm:flex items-center">
+                    <x-nav-link :href="route('denuncia.index')" :false="request()->routeIs('denuncia.index')">
+                        {{ __('Suas Denúncias') }}
                     </x-nav-link>
                 </div>
-
-               
             </div>
 
             <!-- Settings Dropdown -->

@@ -34,35 +34,35 @@
                         <td class="text-center">{{$d->comment}}</td>
                         <td class="text-center">{{$d->latitude}}</td>
                         <td class="text-center">{{$d->longitude}}</td>
-                        
+
                             @foreach($categorias as $c)
                             <td text-center>{{$c->name}}</td>
                              @endforeach
-                       
+
                         <td class="text-green-500"><a href="/denuncia/{{$d->id}}/edit">Editar</a></td>
                         <td>
                         <form action="/denuncia/{{ $d->id }}" method="post">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="text-red-500">Excluir</button>
+                                <button type="submit" class="text-red-500" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</button>
                             </form>
                         </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
-            
+
             </div>
        </div>
     </div>
     <!--div class="min-w-0 flex-auto px-4 sm:px-6 xl:px-8 pt-10 pb-24 lg:pb-16">
       <div class="rounded-t-xl overflow-hidden bg-gradient-to-r from-fuchsia-50 to-fuchsia-100 bg-gray-100 p-8">
-          <div class="grid grid-cols-3 gap-4">      
-           @foreach(Auth::user()->Complaint as $d)       
+          <div class="grid grid-cols-3 gap-4">
+           @foreach(Auth::user()->Complaint as $d)
             <div class="h-12 flex items-center bg-white rounded-md text-center pl-2">{{$d->title}}</div>
           @endforeach
           <a href="/dashboard">Voltar</a>
           </div>
-      </div>    
+      </div>
  </div-->
 </x-app-layout>
