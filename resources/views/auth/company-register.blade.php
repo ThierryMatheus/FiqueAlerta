@@ -8,66 +8,53 @@
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-        <form method="POST" action="{{ route('store_company') }}">
+        <form method="POST" action="{{ route('store') }}">
             @csrf
 
             <!-- Name -->
             <div class="border-b border-b-4 border-black">
-                <x-label for="name" :value="__('Nome')" />
+                <x-label for="name" :value="__('Nome')" class="text-base font-bold"/>
 
-                <x-input id="name" class="block mt-1 w-full" type="text" name="user[name]" :value="old('name')" required />
+                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required />
             </div>
 
             <!-- Email Address -->
             <div class="mt-4 border-b border-b-4 border-black">
-                <x-label for="email" :value="__('Email')" />
+                <x-label for="email" :value="__('Email')" class="text-base font-bold"/>
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="user[email]" :value="old('email')" required />
+                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
             </div>
-            <div class="mt-4 border-b border-b-4 border-black">
-                <x-label for="Fantasy_name" :value="__('Nome Fantasia')" />
 
-                <x-input id="Fantasy_name" class="block mt-1 w-full" type="text" name="company[fantasy_name]" :value="old('fantasy_name')" required />
-            </div>
-            <div class="mt-4 border-b border-b-4 border-black">
-                <x-label for="type" :value="__('Publico/Privado')" />
-
-                <select name="company[type]" id="type" class="block mt-2 w-full border-none">
-                    <option value="" selected disabled></option>
-                    <option value="1">Público</option>
-                    <option value="2">Privada</option>
-                </select>
-            </div>
-            <div class="mt-4 border-b border-b-4 border-black">
-                <x-label for="cnpj" :value="__('CNPJ')" />
-
-                <x-input id="cnpj" class="block mt-1 w-full" type="text" name="company[cnpj]" :value="old('cnpj')" onkeypress="$(this).mask('00.000.000/0000-00')" required />
-            </div>
             <!-- Password -->
             <div class="mt-4 border-b border-b-4 border-black w-6/12">
-                <x-label for="password" :value="__('Senha')" />
+                <x-label for="password" :value="__('Senha')" class="text-base font-bold"/>
 
                 <x-input id="password" class="block mt-1 w-full"
                                 type="password"
-                                name="user[password]"
+                                name="password"
                                 required autocomplete="new-password" />
             </div>
 
             <!-- Confirm Password -->
             <div class="mt-4 border-b border-b-4 border-black w-6/12">
-                <x-label for="password_confirmation" :value="__('Confirme a senha')" />
+                <x-label for="password_confirmation" :value="__('Confirme a senha')" class="text-base font-bold"/>
 
                 <x-input id="password_confirmation" class="block mt-1 w-full"
                                 type="password"
-                                name="user[password_confirmation]" required />
+                                name="password_confirmation" required />
             </div>
+
+                <div class="flex text-center mt-16">
+                    <p class="">Ao criar uma conta, você está de acordo com nossos
+                        <span class="text-blue-750 font-bold">Termos de serviços</span> e
+                        <span class="text-blue-750 font-bold">Política de privacidade</span></p>
+                </div>
 
                 <div class="block mt-4 flex justify-center">
                     <x-button class="ml-4">
-                        {{ __('Cadastrar') }}
+                        {{ __('Continuar') }}
                     </x-button>
                 </div>
-
 
                 <div class="flex items-center justify-center mt-4">
                     <a class="text-base text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
@@ -78,8 +65,4 @@
     </x-auth-card>
     @include('layouts.minfooter')
 </x-guest-layout>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$("#cnpj").mask("99.999.999/9999-99");
-	});
-</script>
+

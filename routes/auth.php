@@ -15,7 +15,7 @@ Route::get('/register', [RegisteredUserController::class, 'create'])
                 ->middleware('guest')
                 ->name('register');
 
-Route::get('/registercompany', [RegisteredUserController::class, 'create_company'])
+Route::get('/register/company', [RegisteredUserController::class, 'create_company'])
                 ->middleware('guest')
                 ->name('registercompany');
 
@@ -24,11 +24,11 @@ Route::get('/register/type', [RegisteredUserController::class, 'user_type'])
                 ->middleware('guest');
 
 Route::post('/register', [RegisteredUserController::class, 'store'])
-                ->middleware('guest');
+                ->middleware('guest')
+                ->name('store');
 
-Route::post('/registercompany', [RegisteredUserController::class, 'store_company'])
+Route::post('/register/company', [RegisteredUserController::class, 'store_company'])
                 ->middleware('guest')->name('store_company');
-
 
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])
                 ->middleware('guest')
@@ -81,3 +81,10 @@ Route::get('/login/google/redirect', [LoginGoogleController::class, 'redirectToP
                 ->name('login.google');
 
 Route::get('/login/google/callback', [LoginGoogleController::class, 'handleProviderCallback']);
+
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('/register/company/complete', [RegisteredUserController::class, 'create_company_two'])
+                ->name('complete.company');
+    Route::post('/register/company/complete', [RegisteredUserController::class, 'store_company'])
+                ->name('complete.company.post');
+});

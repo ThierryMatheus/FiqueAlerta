@@ -23,9 +23,14 @@ class RegisteredUserController extends Controller
     {
         return view('auth.register');
     }
+
     public function create_company()
     {
         return view('auth.company-register');
+    }
+
+    public function create_company_two() {
+        return view('auth.company-register-complete');
     }
 
     public function user_type() {
@@ -60,25 +65,15 @@ class RegisteredUserController extends Controller
 
         return redirect(RouteServiceProvider::HOME);
     }
-    public function store_company(Request $request)
-    {
-        $user = User::create([
-            'name' => $request['user']['name'],
-            'email' => $request['user']['email'],
-            'password' => Hash::make($request['user']['password']),
+
+    public function store_company(Request $request) {
+        auth()->user()->update([
+            'fantasy_name' => $request->fantasy_name,
+            'type' => $request->type,
+            'cnpj' => $request->cnpj,
         ]);
-        if($user){
-            $company = Company_profile::create([
-                'Fantasy_name' => $request['company']['fantasy_name'],
-                'type' => $request['company']['type'],
-                'cnpj' =>$request['company']['cnpj'],
-                'user_id' =>$user->id,
-            ]);
-        }
-        event(new Registered($user));
 
-        Auth::login($user);
-
-        return redirect(RouteServiceProvider::HOME);
+        return redirect('/dashboard');
     }
+
 }
