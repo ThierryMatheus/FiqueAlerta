@@ -2,8 +2,10 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Company_profile;
 use Closure;
 use Illuminate\Http\Request;
+use function PHPUnit\Framework\isEmpty;
 
 class CheckCompanyRegistrationCompleted
 {
@@ -16,9 +18,11 @@ class CheckCompanyRegistrationCompleted
      */
     public function handle(Request $request, Closure $next)
     {
-        if(is_null(auth()->user()->fantasy_name) || is_null(auth()->user()->type) || is_null(auth()->user()->cnpj)) {
-            return redirect()->route('complete.company');
-        }
+//        $company = Company_profile::all();
+//
+//        if(isEmpty($company)) {
+//            return redirect()->route('complete.company');
+//        }
 
         return $next($request);
     }

@@ -63,15 +63,18 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect()->route('complete.company');
     }
 
     public function store_company(Request $request) {
-        auth()->user()->update([
-            'fantasy_name' => $request->fantasy_name,
-            'type' => $request->type,
-            'cnpj' => $request->cnpj,
-        ]);
+        if(auth()->user()){
+            $company = Company_profile::create([
+                'Fantasy_name' => $request->fantasy_name,
+                'type' => $request->type,
+                'cnpj' =>$request->cnpj,
+                'user_id' =>Auth::user()->id,
+            ]);
+        }
 
         return redirect('/dashboard');
     }

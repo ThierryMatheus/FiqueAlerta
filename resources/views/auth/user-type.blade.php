@@ -24,7 +24,7 @@
     </div>
     <div class="flex justify-center text-center">
         <a href="/register" class="mt-64 ml-auto mr-96 text-2xl font-bold"><x-user-type-icon type="consumidor"/>Consumidor</a>
-            <a href="/registercompany" class="mt-64 mr-auto ml-96 text-2xl font-bold"><x-user-type-icon type="empresa"/>Empresa</a>
+            <a href="/register/company" class="mt-64 mr-auto ml-96 text-2xl font-bold"><x-user-type-icon type="empresa"/>Empresa</a>
     </div>
 </main>
 
