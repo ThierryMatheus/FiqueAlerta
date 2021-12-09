@@ -1,66 +1,68 @@
-
-
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ Auth::User()->name }}
+        <h2 class="font-semibold text-2xl text-gray-800 leading-tight">
+            Minhas denúncias
         </h2>
     </x-slot>
 
-
     <div class="flex flex-col max-w-5xl mx-auto mt-5">
-       <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-           <div class="bg-white rounded shadow p-3">
-            <table class="mx-auto border border-gray-200 rounded w-full">
+        <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+            <table class="mx-auto border-gray-200 rounded w-full">
                 <thead>
-                    <tr class="bg-gray-200">
-                        <th class="px-2">Denúncia</th>
-                        <th class="px-2">Comentário</th>
-                        <th class="px-2">Latitude</th>
-                        <th class="px-2">Longitude</th>
-                        <th class="px-2">Categoria</th>
-                        <th class="px-2"></th>
-                        <th class="px-2"></th>
-                    </tr>
+                <tr class="bg-gray-100">
+                    <th class="text-gray-500 text-sm py-4 rounded">Pesquise por titulo</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th class="text-gray-500 text-xs rounded">Todos</th>
+                </tr>
+                <tr>
+                    <th class="font-medium font-sm text-gray-500 py-4 border-b border-b-4 border-gray-200">Título</th>
+                    <th class="font-medium font-sm text-gray-500 py-4 border-b border-b-4 border-gray-200">Comentário
+                    </th>
+                    <th class="font-medium font-sm text-gray-500 py-4 border-b border-b-4 border-gray-200">Latitude</th>
+                    <th class="font-medium font-sm text-gray-500 py-4 border-b border-b-4 border-gray-200">Longitude
+                    </th>
+                    <th class="font-medium font-sm text-gray-500 py-4 border-b border-b-4 border-gray-200">Categoria
+                    </th>
+                    <th class="border-b border-b-4 border-gray-200 py-4"></th>
+                    <th class="border-b border-b-4 border-gray-200 py-4"></th>
+                    <th class="border-b border-b-4 border-gray-200 py-4"></th>
+                </tr>
                 </thead>
-                <tbody>
-                    @foreach(Auth::user()->Complaint as $denuncia)
 
+                <tbody class="pt-8">
+                @foreach(Auth::user()->Complaint as $denuncia)
 
-                    <tr class="border border-gray-200">
-                        <td class="text-center">{{$denuncia->title}}</td>
-                        <td class="text-center">{{$denuncia->comment}}</td>
-                        <td class="text-center">{{$denuncia->latitude}}</td>
-                        <td class="text-center">{{$denuncia->longitude}}</td>
+                    <tr class="border-b border-b-4 border-gray-200 py-4">
 
-                            @foreach($categorias as $categoria)
-                            <td text-center>{{$categoria->name}}</td>
-                             @endforeach
+                        <td class="text-center py-4">{{$denuncia->title}}</td>
+                        <td class="text-center py-4">{{$denuncia->comment}}</td>
+                        <td class="text-center py-4">{{$denuncia->latitude}}</td>
+                        <td class="text-center py-4">{{$denuncia->longitude}}</td>
+
+                        @foreach($categorias as $categoria)
+                            <td class="text-center">{{$categoria->name}}</td>
+                        @endforeach
 
                         <td class="text-green-500"><a href="/denuncia/{{$denuncia->id}}/edit">Editar</a></td>
                         <td>
-                        <form action="/denuncia/{{ $denuncia->id }}" method="post">
+                            <form action="/denuncia/{{ $denuncia->id }}" method="post">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="text-red-500" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</button>
+                                <button type="submit" class="text-red-500"
+                                        onclick="return confirm('Tem certeza que deseja excluir?')">Excluir
+                                </button>
                             </form>
                         </td>
                     </tr>
-                    @endforeach
+                @endforeach
                 </tbody>
             </table>
 
-            </div>
-       </div>
+        </div>
     </div>
-    <!--div class="min-w-0 flex-auto px-4 sm:px-6 xl:px-8 pt-10 pb-24 lg:pb-16">
-      <div class="rounded-t-xl overflow-hidden bg-gradient-to-r from-fuchsia-50 to-fuchsia-100 bg-gray-100 p-8">
-          <div class="grid grid-cols-3 gap-4">
-           @foreach(Auth::user()->Complaint as $d)
-            <div class="h-12 flex items-center bg-white rounded-md text-center pl-2">{{$d->title}}</div>
-          @endforeach
-          <a href="/dashboard">Voltar</a>
-          </div>
-      </div>
- </div-->
 </x-app-layout>

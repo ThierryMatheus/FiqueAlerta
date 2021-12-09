@@ -5,7 +5,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="mb-2 sm:mb-0">
-                    <a href="/" class="text-2xl font-bold">
+                    <a href="/" class="text-3xl font-bold">
                         {{ __('Fique Alerta') }}
                     </a>
                 </div>
