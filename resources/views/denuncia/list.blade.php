@@ -24,24 +24,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach(Auth::user()->Complaint as $d)
-                        @php
-                            $categorias= 'App\models\Complaint'::find($d->id)->categories;
-                        @endphp
+                    @foreach(Auth::user()->Complaint as $denuncia)
+
 
                     <tr class="border border-gray-200">
-                        <td class="text-center">{{$d->title}}</td>
-                        <td class="text-center">{{$d->comment}}</td>
-                        <td class="text-center">{{$d->latitude}}</td>
-                        <td class="text-center">{{$d->longitude}}</td>
+                        <td class="text-center">{{$denuncia->title}}</td>
+                        <td class="text-center">{{$denuncia->comment}}</td>
+                        <td class="text-center">{{$denuncia->latitude}}</td>
+                        <td class="text-center">{{$denuncia->longitude}}</td>
 
-                            @foreach($categorias as $c)
-                            <td text-center>{{$c->name}}</td>
+                            @foreach($categorias as $categoria)
+                            <td text-center>{{$categoria->name}}</td>
                              @endforeach
 
-                        <td class="text-green-500"><a href="/denuncia/{{$d->id}}/edit">Editar</a></td>
+                        <td class="text-green-500"><a href="/denuncia/{{$denuncia->id}}/edit">Editar</a></td>
                         <td>
-                        <form action="/denuncia/{{ $d->id }}" method="post">
+                        <form action="/denuncia/{{ $denuncia->id }}" method="post">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="text-red-500" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</button>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Complaint;
 use App\Models\User;
@@ -19,9 +20,9 @@ class DenunciaController extends Controller
     {
         $this->middleware('auth');
         $denuncia = Auth::user()->complaint;
+        $categorias = Category::all();
         return view('denuncia.list',[
-            'denuncia' => $denuncia,
-         ]);
+            'denuncia' => $denuncia, 'categorias' => $categorias]);
     }
 
     /**
