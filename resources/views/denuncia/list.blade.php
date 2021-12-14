@@ -44,6 +44,10 @@
                         <td class="text-center py-4">{{$denuncia->latitude}}</td>
                         <td class="text-center py-4">{{$denuncia->longitude}}</td>
 
+                        @php 
+                        $categorias = $denuncia::find($denuncia->id)->categories;
+                        @endphp
+
                         @foreach($categorias as $categoria)
                             <td class="text-center">{{$categoria->name}}</td>
                         @endforeach

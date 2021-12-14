@@ -1,4 +1,6 @@
-
+@php 
+    $categorias = $denuncia::find($denuncia->id)->categories;
+@endphp
 
 <x-app-layout>
     <x-slot name="header">
@@ -18,6 +20,7 @@
                         <th class="px-2">Descrição</th>
                         <th class="px-2">Latitude</th>
                         <th class="px-2">Longitude</th>
+                        <th class="px-2">Categoria</th>
                         <th class="px-2"></th>
                         <th class="px-2"></th>
                     </tr>
@@ -29,9 +32,12 @@
                         <td class="text-center">{{$denuncia->comment}}</td>
                         <td class="text-center">{{$denuncia->latitude}}</td>
                         <td class="text-center">{{$denuncia->longitude}}</td>
-
+                        
+                        @foreach($categorias as $categoria)
+                            <td class="text-center">{{$categoria->name}}</td>
+                        @endforeach
                     </tr>
-                    
+                        
                 </tbody>
             </table>
     
