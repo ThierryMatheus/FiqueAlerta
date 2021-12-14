@@ -24,4 +24,9 @@ class Complaint extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'categories_complaint', 'complaint_id','categories_id');
+    }
+
 }

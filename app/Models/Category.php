@@ -10,11 +10,10 @@ class Category extends Model
     use HasFactory;
 
     protected $fillable = [
-
         'name'
     ];
 
-    public function user(){
-        return $this->belongsTo(User::class);
+    public function complaints(){
+        return $this->belongsToMany(Complaint::class, 'categories_complaint', 'categories_id','complaint_id');
     }
 }
