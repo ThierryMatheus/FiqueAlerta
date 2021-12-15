@@ -13,6 +13,7 @@ class Company_profile extends Model
         'Fantasy_name',
         'type',
         'cnpj',
+        'address',
         'user_id'
 
     ];

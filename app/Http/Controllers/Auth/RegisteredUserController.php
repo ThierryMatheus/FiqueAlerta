@@ -93,8 +93,9 @@ class RegisteredUserController extends Controller
             $company = Company_profile::create([
                 'Fantasy_name' => $request->fantasy_name,
                 'type' => $request->type,
-                'cnpj' =>$request->cnpj,
-                'user_id' =>Auth::user()->id,
+                'cnpj' => $request->cnpj,
+                'address' => $request->address,
+                'user_id' =>Auth::user()->id
             ]);
         }
 

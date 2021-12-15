@@ -32,6 +32,12 @@
                          onkeypress="$(this).mask('00.000.000/0000-00')" required/>
             </div>
 
+            <div class="mt-4 border-b border-b-4 border-black">
+                <x-label for="address" :value="__('Endereço')" class="text-base font-bold"/>
+
+                <x-input id="address" class="block mt-1 w-full" type="text" name="address" :value="old('address')" required/>
+            </div>
+
             <div class="flex text-center mt-8 mb-8">
                 <p class="">Ao criar uma conta, você está de acordo com nossos
                     <span class="text-blue-750 font-bold">Termos de serviços</span> e
