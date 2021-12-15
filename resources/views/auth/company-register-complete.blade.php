@@ -1,5 +1,5 @@
-<x-guest-layout>
-    @include('layouts.header')
+<x-app-layout :menu="false">
+    {{-- @include('layouts.header') --}}
     <x-auth-card>
         <x-slot name="logo">
             <h1 class="text-4xl font-bold flex justify-center p-6 mb-12 mt-8">Fique Alerta</h1>
@@ -54,7 +54,7 @@
 
     </x-auth-card>
     @include('layouts.minfooter')
-</x-guest-layout>
+</x-app-layout>
 
 <script type="text/javascript">
     $(document).ready(function () {

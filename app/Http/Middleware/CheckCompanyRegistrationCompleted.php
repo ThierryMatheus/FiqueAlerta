@@ -21,9 +21,10 @@ class CheckCompanyRegistrationCompleted
      */
     public function handle(Request $request, Closure $next)
     {
-        $company = Company_profile::all()->last();
+        /** @var User $user */
+        $user = Auth::user();
 
-        if(auth()->user()->userType === 1 && $company->user_id !== auth()->id()) {
+        if($user->is_company() && !$user->has_company_profile()) {
             return redirect()->route('complete.company');
         }
 

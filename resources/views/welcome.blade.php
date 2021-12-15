@@ -17,9 +17,7 @@
     <header>
         @include('layouts.header')
     </header>
-    <x-app-layout>
             <div id="map" style="height: 400px;"></div>
-    </x-app-layout>
 
     @include('layouts.footer')
     <script

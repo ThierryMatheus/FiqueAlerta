@@ -20,18 +20,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['middleware' => 'auth'], function() {
-    Route::group(['middleware' => 'company_registration_completed'], function() {
+Route::group(['middleware' => ['auth', 'company_registration_completed']], function() {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
 
-    });
+    Route::resource('/denuncia', DenunciaController::class);
+    Route::resource('/reclamante', ComplainantController::class);
+    Route::delete('/denuncia/{id}', [DenunciaController::class, 'destroy'])->name('excluir_denuncia');
 });
 
 
-Route::resource('/denuncia', DenunciaController::class);
-Route::resource('/reclamante', ComplainantController::class);
-Route::delete('/denuncia/{id}', [DenunciaController::class, 'destroy'])->name('excluir_denuncia');
 
 require __DIR__.'/auth.php';

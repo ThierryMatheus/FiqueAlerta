@@ -51,6 +51,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function is_company()
+    {
+        return $this->userType == 1;
+    }
+
+    public function has_company_profile()
+    {
+        return $this->company_profile !== null;
+    }
+
     public function company_profile()
     {
         return $this->hasOne(company_profile::class);

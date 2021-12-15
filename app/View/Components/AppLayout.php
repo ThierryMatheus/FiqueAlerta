@@ -6,6 +6,14 @@ use Illuminate\View\Component;
 
 class AppLayout extends Component
 {
+
+    public $menu;
+
+    public function __construct($menu = true)
+    {
+        $this->menu = $menu;
+    }
+
     /**
      * Get the view / contents that represents the component.
      *

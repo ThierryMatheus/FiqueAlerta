@@ -18,7 +18,6 @@ class DenunciaController extends Controller
      */
     public function index()
     {
-        $this->middleware('auth');
         $denuncia = Auth::user()->complaint;
         $categorias = Category::all();
         return view('denuncia.list',[
@@ -32,7 +31,6 @@ class DenunciaController extends Controller
      */
     public function create()
     {
-        $this->middleware('auth');
         return view('denuncia.create');
     }
 
@@ -44,7 +42,6 @@ class DenunciaController extends Controller
      */
     public function store(Request $request)
     {
-        $this->middleware('auth');
 
         $request->validate([
             'title' => ['required', 'max:255', 'string'],
@@ -78,7 +75,6 @@ class DenunciaController extends Controller
      */
     public function show($id)
     {
-        $this->middleware('auth');
         $denuncia = Complaint::find($id);
         return view('denuncia.show')->with('denuncia', $denuncia);
     }
