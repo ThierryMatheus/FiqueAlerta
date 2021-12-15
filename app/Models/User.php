@@ -28,7 +28,8 @@ class User extends Authenticatable
         'cpf',
         'address',
         'cellphone',
-        'birthdate'
+        'birthdate',
+        'userType'
     ];
 
     /**

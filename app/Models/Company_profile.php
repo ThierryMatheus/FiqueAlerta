@@ -14,7 +14,7 @@ class Company_profile extends Model
         'type',
         'cnpj',
         'user_id'
-        
+
     ];
 
     public function user()

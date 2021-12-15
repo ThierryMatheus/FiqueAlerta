@@ -57,6 +57,28 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'userType' => '0'
+        ]);
+
+        event(new Registered($user));
+
+        Auth::login($user);
+
+        return redirect()->route('dashboard');
+    }
+
+    public function store_company(Request $request) {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'userType' => '1'
         ]);
 
         event(new Registered($user));
@@ -66,7 +88,7 @@ class RegisteredUserController extends Controller
         return redirect()->route('complete.company');
     }
 
-    public function store_company(Request $request) {
+    public function store_company_two(Request $request) {
         if(auth()->user()){
             $company = Company_profile::create([
                 'Fantasy_name' => $request->fantasy_name,

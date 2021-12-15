@@ -21,10 +21,10 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => 'auth'], function() {
+    Route::group(['middleware' => 'company_registration_completed'], function() {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-    Route::group(['middleware' => 'company_registration_completed'], function() {
 
     });
 });

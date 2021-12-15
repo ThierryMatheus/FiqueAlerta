@@ -73,7 +73,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/register/company/complete', [RegisteredUserController::class, 'create_company_two'])
         ->name('complete.company');
 
-    Route::post('/register/company/complete', [RegisteredUserController::class, 'store_company'])
+    Route::post('/register/company/complete', [RegisteredUserController::class, 'store_company_two'])
         ->name('complete.company.post');
 });
     Route::get('/login/google/callback', [LoginGoogleController::class, 'handleProviderCallback']);

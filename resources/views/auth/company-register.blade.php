@@ -8,7 +8,7 @@
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-        <form method="POST" action="{{ route('store') }}">
+        <form method="POST" action="{{ route('store_company') }}">
             @csrf
 
             <!-- Name -->
