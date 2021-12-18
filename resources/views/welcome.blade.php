@@ -17,25 +17,10 @@
     <header>
         @include('layouts.header')
     </header>
-            <div id="map" style="height: 400px;"></div>
+            
 
     @include('layouts.footer')
-    <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDy_BoYMtuOPg56qqmooJ3fq1bX1TXKucw&callback=initMap&v=weekly"
-    async
-  ></script>
-  <script>
-    let map;
-    function initMap() {
-        map = new google.maps.Map(document.getElementById("map"), {
-           center: {lat: -8.05428, lng: -34.8813},
-           zoom: 13,
-        });
-        const marker = new google.maps.Marker({
-          position: {lat: -8.05428, lng: -34.8813},
-          map: map,
-        });
-      };
-  </script>
+     
+    <script src="https://code.iconify.design/2/2.1.0/iconify.min.js"></script>
 </body>
 </html>
