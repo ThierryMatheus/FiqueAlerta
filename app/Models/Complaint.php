@@ -26,7 +26,7 @@ class Complaint extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class, 'categories_complaint', 'complaint_id','categories_id');
+        return $this->belongsToMany(Category::class, 'categories_complaint', 'complaint_id','categories_id')->using(Category_Complaint::class);
     }
 
 }
