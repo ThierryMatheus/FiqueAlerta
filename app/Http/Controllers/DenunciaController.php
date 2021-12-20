@@ -8,6 +8,7 @@ use App\Models\Complaint;
 use App\Models\User;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DenunciaController extends Controller
 {
@@ -20,8 +21,11 @@ class DenunciaController extends Controller
     {
         $denuncia = Auth::user()->complaint;
         $categorias = Category::all();
+        
+          
         return view('denuncia.list',[
             'denuncia' => $denuncia, 'categorias' => $categorias]);
+       
     }
 
     /**
@@ -31,7 +35,8 @@ class DenunciaController extends Controller
      */
     public function create()
     {
-        return view('denuncia.create');
+        $categorias = Category::all();
+        return view('denuncia.create', ['categorias' => $categorias]);
     }
 
     /**
@@ -60,7 +65,20 @@ class DenunciaController extends Controller
             'user_id' => Auth::user()->id
             ]);
 
+        $user = Auth::user();
+        $complaint = Auth::user()->complaint->max();    
+        $cat = $request->categorias;
+        $categorias = explode(',', $cat);
+        
+        foreach($categorias as $categoria) {
+            $complaint->categories()->attach($categoria);  
+        }   
+         
 
+
+
+        //como vou pegar o id dessa complaint pra inserir na tebela intermediária??    
+            
 
             return Redirect::route('dashboard')
         ->with('success', 'Denuncia Criada com sucesso');
@@ -129,7 +147,9 @@ class DenunciaController extends Controller
     public function destroy($id)
     {
         $denuncia = Complaint::find($id);
+        $denuncia->categories()->detach();
         $denuncia->delete();
+        
 
         return redirect('/dashboard');
     }

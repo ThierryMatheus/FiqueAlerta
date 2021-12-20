@@ -48,16 +48,28 @@
                             <x-label class="pr-2">Longitude:</x-label>
                             <input type="text" name="longitude" id="longitude" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                         </div>
+                        <div class="flex items-center justify-end mt-4">
+                            <x-label class="pr-2">Categoria:</x-label>
+                            <select type="text" id="categorias" onchange="addCategory()" name="categoria" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                            <option  value="">Categorias</option>
+                            @foreach ($categorias as $categoria)
+                                    <option id="{{$categoria->id}}" name="{{$categoria->name}}" value="{{$categoria->id}}">{{$categoria->name}}</option>
+                                @endforeach
+                            </select>
+                            <input type="text" name="categorias" hidden>
                         </fieldset>
+                        <div class="categoriesSelected flex space-x-4 mt-5"></div>
                         <div class="flex items-center justify-end mt-4">
                             <x-button>Enviar</x-button>
                         </div>
                     </form>
+                    
            </div>
         </div>
     </div>
 
-
+    <!-- preciso pensar num jeito de pegar o nome da categoria no javascript
+        Vou criar um input hidden com o value que é um array de todas categorias selecionadas-->
 
     <div class="max-w-7xl mx-auto my-12">
     <div class="bg-white rounded shadow-sm">
@@ -101,6 +113,38 @@
        
         });
       };
+  </script>
+
+  <script>
+      let categoriesadded = []
+      let inp = document.getElementsByName("categorias")[0]
+
+      function addCategory()
+      {
+          
+          let value = document.getElementById("categorias").value;
+          console.log(value)
+          let name = document.getElementById(value).text   
+          if (!categoriesadded.includes(value)){
+            let categorySelected = document.createElement("p");
+            let title = document.createTextNode(name); 
+            categorySelected.appendChild(title);
+            categoriesadded.push(value)
+            inp.value = categoriesadded
+           
+            console.log(categoriesadded)
+            console.log(typeof(inp.value))
+            document.getElementsByClassName("categoriesSelected")[0].appendChild(categorySelected)
+
+          }
+          
+
+      }
+      
+      
+            
+            
+
   </script>
 
 </x-app-layout>
