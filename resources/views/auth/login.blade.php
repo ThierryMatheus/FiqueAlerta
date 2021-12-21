@@ -28,6 +28,7 @@
                              placeholder="Senha"
                              required autocomplete="current-password"/>
                 </div>
+                
                 <div class="block mt-4 flex justify-center">
                     <x-button class="mt-4 font-bold text-sm content-center">
                         {{ __('Entrar') }}
@@ -35,7 +36,7 @@
                 </div>
     
                 <div class="my-2 mt-4 flex justify-center">
-                    <span class="absolute bg-white px-12 mt-1 text-xs font-bold">OU</span>
+                    <span class="absolute bg-white px-12 text-sm font-semibold">ou</span>
                     <div class="w-full bg-black mt-3 h-px">
                     </div>
                 </div>
