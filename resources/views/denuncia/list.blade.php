@@ -7,6 +7,7 @@
 
     <div class="flex flex-col max-w-5xl mx-auto mt-5">
         <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+            <div class="overflow-y-scroll" style="height: 400px;">
             <table class="mx-auto border-gray-200 rounded w-full">
                 <thead>
                 <tr class="bg-gray-100">
@@ -66,6 +67,7 @@
                 @endforeach
                 </tbody>
             </table>
+            </div>
 
         </div>
     </div>
