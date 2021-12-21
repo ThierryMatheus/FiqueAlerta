@@ -30,27 +30,27 @@
 
                         <div class="flex items-center justify-end mt-4">
                             <x-label class="pr-2">Título:</x-label>
-                            <x-input type="text" name="title" class="block mt-1 w-full"/>
+                            <x-input type="text" name="title" class="block mt-1 w-full" required/>
                         </div>
                         <div class="flex items-center justify-end mt-4">
                             <x-label class="pr-2">Comentário:</x-label>
-                            <textarea type="text" name="comment" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"></textarea>
+                            <textarea type="text" name="comment" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required></textarea>
                         </div>
                         <div class="flex items-center justify-end mt-4">
                             <x-label class="pr-2">Data de Reclamação:</x-label>
-                            <x-input type="date" name="claim_date" class="block mt-1 w-full"/>
+                            <x-input type="date" name="claim_date" class="block mt-1 w-full" required/>
                         </div>
                         <div class="flex items-center justify-end mt-4">
                             <x-label class="pr-2">Latitude:</x-label>
-                            <input type="text" name="latitude" id="latitude" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                            <x-input type="text" name="latitude" id="latitude" class="block mt-1 w-full" required/>
                         </div>
                         <div class="flex items-center justify-end mt-4">
                             <x-label class="pr-2">Longitude:</x-label>
-                            <input type="text" name="longitude" id="longitude" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                            <x-input type="text" name="longitude" id="longitude" class="block mt-1 w-full" required/>
                         </div>
                         <div class="flex items-center justify-end mt-4">
                             <x-label class="pr-2">Categoria:</x-label>
-                            <select type="text" id="categorias" onchange="addCategory()" name="categoria" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                            <select type="text" id="categorias" onchange="addCategory()" name="categoria" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
                             <option  value="">Categorias</option>
                             @foreach ($categorias as $categoria)
                                     <option id="{{$categoria->id}}" name="{{$categoria->name}}" value="{{$categoria->id}}">{{$categoria->name}}</option>
@@ -129,22 +129,35 @@
       {
 
           let value = document.getElementById("categorias").value;
-          console.log(value)
-          let name = document.getElementById(value).text
+          console.log(value);
+          let name = document.getElementById(value).text;
           if (!categoriesadded.includes(value)){
             let categorySelected = document.createElement("p");
             let title = document.createTextNode(name);
             categorySelected.appendChild(title);
-            categoriesadded.push(value)
-            inp.value = categoriesadded
+            categoriesadded.push(value);
+            inp.value = categoriesadded;
+            categorySelected.setAttribute("id", "categoria"+value);
+            categorySelected.setAttribute("onclick", "removeCategory()");
 
-            console.log(categoriesadded)
-            console.log(typeof(inp.value))
-            document.getElementsByClassName("categoriesSelected")[0].appendChild(categorySelected)
+            console.log(categoriesadded);
+            console.log(typeof(inp.value));
+            document.getElementsByClassName("categoriesSelected")[0].appendChild(categorySelected);
 
           }
 
 
+      }
+
+      function removeCategory(){
+        let value = document.getElementById("categorias").value;
+        var index = categoriesadded.indexOf(value);
+            if (index > -1) {
+                categoriesadded.splice(index, 1);
+                console.log(categoriesadded);
+                let categoryremoved =  document.getElementById("categoria"+value);
+                document.getElementsByClassName("categoriesSelected")[0].removeChild(categoryremoved);
+            }
       }
 
 
