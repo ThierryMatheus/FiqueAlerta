@@ -63,7 +63,7 @@
                             <x-button>Enviar</x-button>
                         </div>
                     </form>
-                    
+
            </div>
         </div>
     </div>
@@ -86,6 +86,8 @@
   ></script>
   <script>
     let map;
+    let marker;
+
     function initMap() {
         map = new google.maps.Map(document.getElementById("map"), {
            center: {lat: -8.05428, lng: -34.8813},
@@ -95,8 +97,12 @@
         map.addListener('click', (data) => {
          let lat = data.latLng.lat();
          let lng =  data.latLng.lng();
-      
-      const marker = new google.maps.Marker({ 
+
+         if(marker && marker.setMap) {
+             marker.setMap(null)
+         }
+
+      marker = new google.maps.Marker({
         position: {lat,lng},
         map: map,
         title: lat+" , "+lng,
@@ -110,7 +116,7 @@
          form.style.display = 'block';
          inputLat.value = lat;
          inputLng.value = lng;
-       
+
         });
       };
   </script>
@@ -121,29 +127,29 @@
 
       function addCategory()
       {
-          
+
           let value = document.getElementById("categorias").value;
           console.log(value)
-          let name = document.getElementById(value).text   
+          let name = document.getElementById(value).text
           if (!categoriesadded.includes(value)){
             let categorySelected = document.createElement("p");
-            let title = document.createTextNode(name); 
+            let title = document.createTextNode(name);
             categorySelected.appendChild(title);
             categoriesadded.push(value)
             inp.value = categoriesadded
-           
+
             console.log(categoriesadded)
             console.log(typeof(inp.value))
             document.getElementsByClassName("categoriesSelected")[0].appendChild(categorySelected)
 
           }
-          
+
 
       }
-      
-      
-            
-            
+
+
+
+
 
   </script>
 
