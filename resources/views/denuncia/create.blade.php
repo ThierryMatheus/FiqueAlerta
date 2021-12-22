@@ -157,8 +157,8 @@
       {
 
           let value = document.getElementById("categorias").value;
-          console.log(value);
           let name = document.getElementById(value).text;
+
           if (!categoriesadded.includes(value)){
             let categorySelected = document.createElement("p");
             let title = document.createTextNode(name);
@@ -166,10 +166,9 @@
             categoriesadded.push(value);
             inp.value = categoriesadded;
             categorySelected.setAttribute("id", "categoria"+value);
-            categorySelected.setAttribute("onclick", "removeCategory()");
+            let cat = "categoria"+value
+            categorySelected.setAttribute("onclick", `removeCategory(${cat})`);
 
-            console.log(categoriesadded);
-            console.log(typeof(inp.value));
             document.getElementsByClassName("categoriesSelected")[0].appendChild(categorySelected);
 
           }
@@ -177,19 +176,16 @@
 
       }
 
-      function removeCategory(){
-        let value = document.getElementById("categorias").value;
-        var index = categoriesadded.indexOf(value);
+      function removeCategory(category){
+        let value = category.id.slice(-1)
+        let index = categoriesadded.indexOf(value);
             if (index > -1) {
                 categoriesadded.splice(index, 1);
-                console.log(categoriesadded);
                 let categoryremoved =  document.getElementById("categoria"+value);
                 document.getElementsByClassName("categoriesSelected")[0].removeChild(categoryremoved);
+                inp.value = categoriesadded;
             }
       }
-
-
-
 
 
   </script>
