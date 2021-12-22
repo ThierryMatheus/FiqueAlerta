@@ -6,11 +6,17 @@
 
 <x-app-layout>
 
-
-
-
-
-    <div class="max-w-5xl mx-auto my-12" id="form" style="display: none;">
+<div class="modal h-screen w-full fixed left-0 top-0 flex justify-center items-center bg-black bg-opacity-50 hidden z-50">
+    <!-- modal -->
+    <div class="bg-white rounded shadow-lg w-1/2">
+      <!-- modal header -->
+      <div class="border-b px-4 py-2 flex justify-between items-center">
+        <h3 class="font-semibold text-lg">Modal Title</h3>
+        <button class="text-black close-modal">&cross;</button>
+      </div>
+      <!-- modal body -->
+    <div id="modal">
+    <div class="max-w-5xl mx-auto my-12" id="form">
         <div class="bg-white rounded shadow-sm">
            <div class="p-6">
                @if ($errors->any())
@@ -60,13 +66,21 @@
                         </fieldset>
                         <div class="categoriesSelected flex space-x-4 mt-5"></div>
                         <div class="flex items-center justify-end mt-4">
-                            <x-button>Enviar</x-button>
+                        <button class="text-sm text-white bg-red-600 hover:bg-red-700 mr-1 rounded-md p-1 px-28 close-modal">Cancel</button>   
+                        <x-button>Enviar</x-button>
                         </div>
                     </form>
 
            </div>
         </div>
+    </div>  
     </div>
+    </div>
+  </div>
+
+
+
+    
 
     <!-- preciso pensar num jeito de pegar o nome da categoria no javascript
         Vou criar um input hidden com o value que é um array de todas categorias selecionadas-->
@@ -97,6 +111,9 @@
         map.addListener('click', (data) => {
          let lat = data.latLng.lat();
          let lng =  data.latLng.lng();
+         const modal = document.querySelector('.modal');
+         const closeModal = document.querySelectorAll('.close-modal');
+         
 
          if(marker && marker.setMap) {
              marker.setMap(null)
@@ -108,12 +125,23 @@
         title: lat+" , "+lng,
         });
 
-         var form = document.getElementById("form");
+            /* logica do modal */ 
+                    
+                    modal.classList.remove('hidden')
+                    
+                    closeModal.forEach(close => {
+                    close.addEventListener('click', function (){
+                        modal.classList.add('hidden')
+                    });
+                    });
+
+
+
          var inputLat = document.getElementById("latitude");
          var inputLng = document.getElementById("longitude");
 
          //map.style.display = 'none';
-         form.style.display = 'block';
+        
          inputLat.value = lat;
          inputLng.value = lng;
 
