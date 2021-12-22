@@ -12,6 +12,14 @@ use Illuminate\Support\Facades\DB;
 
 class DenunciaController extends Controller
 {
+
+    public function all() {
+        
+        $denuncia = Complaint::all();
+
+        echo json_encode($denuncia);
+    }
+
     /**
      * Display a listing of the resource.
      *

@@ -20,6 +20,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Route::group(['middleware' => ['auth', 'company_registration_completed']], function() {
     Route::get('/dashboard', function () {
         return view('dashboard');
@@ -28,6 +29,7 @@ Route::group(['middleware' => ['auth', 'company_registration_completed']], funct
     Route::resource('/denuncia', DenunciaController::class);
     Route::resource('/reclamante', ComplainantController::class);
     Route::delete('/denuncia/{id}', [DenunciaController::class, 'destroy'])->name('excluir_denuncia');
+    Route::get('/denuncia2', [DenunciaController::class, 'all'])->name('denuncia_all');
 });
 
 
