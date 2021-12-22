@@ -68,8 +68,8 @@ class DenunciaController extends Controller
         $user = Auth::user();
         $complaint = Auth::user()->complaint->max();    
         $cat = $request->categorias;
-        $categorias = explode(',', $cat);
-        
+        $categorias = explode(',', $cat);      
+
         foreach($categorias as $categoria) {
             $complaint->categories()->attach($categoria);  
         }   
@@ -106,7 +106,8 @@ class DenunciaController extends Controller
     public function edit($id)
     {
         $denuncia = Complaint::find($id);
-        return view('denuncia.edit')->with('denuncia', $denuncia);
+        $categorias = Category::all();
+        return view('denuncia.edit', ['categorias' => $categorias, 'denuncia' => $denuncia]);
     }
 
     /**
@@ -133,6 +134,27 @@ class DenunciaController extends Controller
             'latitude' => $request->input('latitude'),
             'longitude' => $request->input('longitude')
         ]);
+
+        $user = Auth::user();
+        $complaint = Auth::user()->complaint->max();    
+        
+        $rem = $request->remove;
+        $remove = explode(',', $rem);
+        if(isset($remove)) {
+            foreach($remove as $r) {
+                $complaint->categories()->detach($r);  
+            }  
+        }  
+
+        $cat = $request->categorias;
+        $categorias = explode(',', $cat);
+        
+        foreach($categorias as $categoria) {
+            if($complaint->categories()->find($categoria) == null){
+                $complaint->categories()->attach($categoria); 
+            }
+             
+        }   
 
         return Redirect::route('denuncia.index')
         ->with('success', 'Denuncia atualizada com sucesso');
