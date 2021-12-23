@@ -1,68 +1,74 @@
 <x-guest-layout>
     @include('layouts.header')
-    <x-auth-card>
+    <x-auth-card2>
         <x-slot name="logo">
-            <h1 class="text-4xl font-bold flex justify-center p-6 mb-12 mt-8">Fique Alerta</h1>
+            <h1 class="text-3xl font-bold flex justify-center mb-8 mt-6">Cadastro</h1>
         </x-slot>
 
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
         <form method="POST" action="{{ route('store_company') }}">
-            @csrf
+        @csrf
 
-            <!-- Name -->
-            <div class="border-b border-b-4 border-black">
-                <x-label for="name" :value="__('Nome')" class="text-base font-bold"/>
+        <!-- Name -->
+            <div class="px-28">
+                <div class="flex pb-6 justify-center items-center font-semibold">
+                    <x-social icon="google"/>
+                    <a href="{{ route('login.google') }}" class="ml-1 text-sm mr-5">Entrar com o Google</a>
+                </div>
 
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required />
+                <div class="flex justify-center">
+                    <span class="absolute bg-white px-12 text-sm font-semibold">ou</span>
+                    <div class="w-full bg-black mt-3 h-px">
+                    </div>
+                </div>
             </div>
+            <div class="px-20 mt-9">
+                <div class="border-b border-b-4 border-black">
+                    <x-label for="name" :value="__('Nome')" class="text-sm font-bold"/>
+                    <x-input id="name" class="block w-full" type="text" name="name" :value="old('name')" required/>
+                </div>
 
-            <!-- Email Address -->
-            <div class="mt-4 border-b border-b-4 border-black">
-                <x-label for="email" :value="__('Email')" class="text-base font-bold"/>
+                <!-- Email Address -->
+                <div class="mt-5 border-b border-b-4 border-black">
+                    <x-label for="name" :value="__('Email')" class="text-sm font-bold"/>
+                    <x-input id="email" class="block w-full" type="email" name="email" :value="old('email')" required/>
+                </div>
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
-            </div>
+                <!-- Password -->
+                <div class="mt-6 border-b border-b-4 border-black w-7/12">
+                    <x-label for="name" :value="__('Senha')" class="text-sm font-bold"/>
+                    <x-input id="password" class="block w-full"
+                            type="password"
+                            name="password"
+                            required autocomplete="new-password"/>
+                </div>
 
-            <!-- Password -->
-            <div class="mt-4 border-b border-b-4 border-black w-6/12">
-                <x-label for="password" :value="__('Senha')" class="text-base font-bold"/>
+                <!-- Confirm Password -->
+                <div class="mt-5 border-b border-b-4 border-black w-7/12">
+                    <x-label for="name" :value="__('Confirmar senha')" class="text-sm font-bold"/>
+                    <x-input id="password_confirmation" class="block w-full"
+                            type="password"
+                            name="password_confirmation"
+                            required/>
+                </div>
 
-                <x-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="new-password" />
-            </div>
-
-            <!-- Confirm Password -->
-            <div class="mt-4 border-b border-b-4 border-black w-6/12">
-                <x-label for="password_confirmation" :value="__('Confirme a senha')" class="text-base font-bold"/>
-
-                <x-input id="password_confirmation" class="block mt-1 w-full"
-                                type="password"
-                                name="password_confirmation" required />
-            </div>
-
-                <div class="flex text-center mt-16">
-                    <p class="">Ao criar uma conta, você está de acordo com nossos
+                <div class="flex text-xs mt-12 ml-7">
+                    <p class="text-center">Ao criar uma conta, você está de acordo com nossos<br>
                         <span class="text-blue-750 font-bold">Termos de serviços</span> e
                         <span class="text-blue-750 font-bold">Política de privacidade</span></p>
                 </div>
-
-                <div class="block mt-4 flex justify-center">
-                    <x-button class="ml-4">
+    
+                <div class="block mt-4 flex justify-center mb-5">
+                    <x-button class="text-sm font-bold">
                         {{ __('Continuar') }}
                     </x-button>
                 </div>
+            </div>
 
-                <div class="flex items-center justify-center mt-4">
-                    <a class="text-base text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                        {{ __('Já possui cadastro?') }}
-                    </a>
-                </div>
         </form>
-    </x-auth-card>
+    </x-auth-card2>
     @include('layouts.minfooter')
 </x-guest-layout>
 
