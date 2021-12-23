@@ -16,19 +16,19 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
-<body class="antialiased flex flex-col min-h-screen">
+<body>
 @include('layouts.navigation', ['show_menu' => $menu])
 
-<header class="bg-white">
-    <div class="max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
-        {{ $header ?? '' }}
+<main class="flex flex-col bg-white">
+    <div>
+        <div class="pt-8 pb-6  lg:px-8">
+            {{ $header ?? '' }}
+        </div>
+        <div class="mt-5">
+            {{ $slot ?? ''}}
+        </div>
     </div>
-</header>
-
-<!-- Page Content -->
-<main>
-    {{ $slot ?? ''}}
 </main>
-@include('layouts.minfooter')
+    @include('layouts.minfooter')
 </body>
 </html>
