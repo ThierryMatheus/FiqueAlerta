@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DenunciaController;
 use App\Http\Controllers\ComplainantController;
@@ -21,9 +22,10 @@ Route::get('/', function () {
 });
 
 
-Route::group(['middleware' => ['auth', 'company_registration_completed']], function() {
+Route::group(['middleware' => ['auth', 'company_registration_completed']], function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        $categorias = Category::all();
+        return view('dashboard', ['categorias' => $categorias]);
     })->name('dashboard');
 
     Route::resource('/denuncia', DenunciaController::class);
@@ -33,5 +35,4 @@ Route::group(['middleware' => ['auth', 'company_registration_completed']], funct
 });
 
 
-
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
