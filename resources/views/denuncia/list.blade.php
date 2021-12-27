@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="flex flex-col max-w-5xl ml-14">
+    <div class="flex flex-col mr-auto ml-auto max-w-5xl ml-14">
         <div class="align-middle inline-block min-w-full ml-8">
             <div class="overflow-auto" style="height: 430px;">
             <table class="border-gray-200 w-full">

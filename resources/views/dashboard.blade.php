@@ -105,7 +105,7 @@
 
     <div class="p-6">
         <legend class="text-center">Marque a Localização no mapa.</legend>
-        <div id="map" style="height: 694px; width:85%; display: block; float: right;"></div>
+        <div id="map" style="height: 650px;display: block;"></div>
     </div>
 
     <script
