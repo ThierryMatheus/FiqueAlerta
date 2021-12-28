@@ -17,14 +17,14 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 <body>
-@include('layouts.navigation', ['show_menu' => $menu])
+@include('layouts.header', ['show_menu' => $menu])
 
-<main class="flex flex-col bg-white">
+<main>
     <div>
-        <div class="pt-8 pb-6  lg:px-8">
+        <div>
             {{ $header ?? '' }}
         </div>
-        <div class="mt-5">
+        <div>
             {{ $slot ?? ''}}
         </div>
     </div>

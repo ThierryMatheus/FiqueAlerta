@@ -1,11 +1,14 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-bold text-xl ml-14">
-            Minhas denúncias
-        </h2>
+        <div class="pt-8 pb-6  lg:px-8">
+            <h2 class="font-bold text-xl ml-14">
+                Minhas denúncias
+            </h2>
+        </div>
     </x-slot>
 
-    <div class="flex flex-col mr-auto ml-auto max-w-5xl ml-14">
+<div class="flex flex-col bg-white">
+    <div class="flex flex-col max-w-5xl ml-14 mt-5">
         <div class="align-middle inline-block min-w-full ml-8">
             <div class="overflow-auto" style="height: 430px;">
             <table class="border-gray-200 w-full">
@@ -70,4 +73,5 @@
 
         </div>
     </div>
+</div>
 </x-app-layout>
