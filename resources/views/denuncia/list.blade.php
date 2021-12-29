@@ -44,16 +44,17 @@
 
                         <td class="text-center py-4">{{$denuncia->title}}</td>
                         <td class="text-center py-4">{{$denuncia->comment}}</td>
-                        <td class="text-center py-4">{{$denuncia->latitude}}</td>
-                        <td class="text-center py-4">{{$denuncia->longitude}}</td>
 
                         @php 
                         $categorias = $denuncia::find($denuncia->id)->categories;
                         @endphp
 
                         @foreach($categorias as $categoria)
-                            <td class="text-center">{{$categoria->name}}</td>
+                            <td class="text-center py-4">{{$categoria->name}}</td>
                         @endforeach
+
+                        <td class="text-center py-4">{{$denuncia->claim_date}}</td>
+                        {{--<td class="text-center py-4">{{$denuncia->}}</td>--}}
 
                         <td class="text-green-500"><a href="/denuncia/{{$denuncia->id}}/edit">Editar</a></td>
                         <td>
