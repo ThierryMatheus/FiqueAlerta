@@ -67,7 +67,6 @@ class DenunciaController extends Controller
         Complaint::create([
             'title' => $request->title,
             'comment' => $request->comment,
-            'claim_date' => $request->claim_date,
             'latitude' => $request->latitude,
             'longitude' => $request->longitude,
             'user_id' => Auth::user()->id
@@ -130,7 +129,6 @@ class DenunciaController extends Controller
         $request->validate([
             'title' => ['required', 'max:255', 'string'],
             'comment' => ['required', 'max:255', 'string'],
-            'claim_date' => ['required', 'date'],
             'latitude' => ['required', 'numeric'],
             'longitude' => ['required', 'numeric']
         ]);
@@ -138,7 +136,6 @@ class DenunciaController extends Controller
         $denuncia = Complaint::where('id', $id)->update([
             'title' => $request->input('title'),
             'comment' => $request->input('comment'),
-            'claim_date' => $request->input('claim_date'),
             'latitude' => $request->input('latitude'),
             'longitude' => $request->input('longitude')
         ]);

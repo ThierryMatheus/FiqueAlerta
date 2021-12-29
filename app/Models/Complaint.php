@@ -12,7 +12,6 @@ class Complaint extends Model
     protected $fillable = [
         'title',
         'comment',
-        'claim_date',
         'latitude',
         'longitude',
         'user_id' 
