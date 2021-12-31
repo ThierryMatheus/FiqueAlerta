@@ -14,7 +14,7 @@ class DenunciaController extends Controller
 {
 
     public function all() {
-        
+
         $denuncia = Complaint::all();
 
         echo json_encode($denuncia);
@@ -29,11 +29,11 @@ class DenunciaController extends Controller
     {
         $denuncia = Auth::user()->complaint;
         $categorias = Category::all();
-        
-          
+
+
         return view('denuncia.list',[
             'denuncia' => $denuncia, 'categorias' => $categorias]);
-       
+
     }
 
     /**
@@ -59,7 +59,6 @@ class DenunciaController extends Controller
         $request->validate([
             'title' => ['required', 'max:255', 'string'],
             'comment' => ['required', 'max:255', 'string'],
-            'claim_date' => ['required', 'date'],
             'latitude' => ['required', 'numeric'],
             'longitude' => ['required', 'numeric']
         ]);
@@ -73,19 +72,19 @@ class DenunciaController extends Controller
             ]);
 
         $user = Auth::user();
-        $complaint = Auth::user()->complaint->max();    
+        $complaint = Auth::user()->complaint->max();
         $cat = $request->categorias;
-        $categorias = explode(',', $cat);      
+        $categorias = explode(',', $cat);
 
         foreach($categorias as $categoria) {
-            $complaint->categories()->attach($categoria);  
-        }   
-         
+            $complaint->categories()->attach($categoria);
+        }
 
 
 
-        //como vou pegar o id dessa complaint pra inserir na tebela intermediária??    
-            
+
+        //como vou pegar o id dessa complaint pra inserir na tebela intermediária??
+
 
             return Redirect::route('dashboard')
         ->with('success', 'Denuncia Criada com sucesso');
@@ -141,25 +140,25 @@ class DenunciaController extends Controller
         ]);
 
         $user = Auth::user();
-        $complaint = Auth::user()->complaint->max();    
-        
+        $complaint = Auth::user()->complaint->max();
+
         $rem = $request->remove;
         $remove = explode(',', $rem);
         if(isset($remove)) {
             foreach($remove as $r) {
-                $complaint->categories()->detach($r);  
-            }  
-        }  
+                $complaint->categories()->detach($r);
+            }
+        }
 
         $cat = $request->categorias;
         $categorias = explode(',', $cat);
-        
+
         foreach($categorias as $categoria) {
             if($complaint->categories()->find($categoria) == null){
-                $complaint->categories()->attach($categoria); 
+                $complaint->categories()->attach($categoria);
             }
-             
-        }   
+
+        }
 
         return Redirect::route('denuncia.index')
         ->with('success', 'Denuncia atualizada com sucesso');
@@ -176,7 +175,7 @@ class DenunciaController extends Controller
         $denuncia = Complaint::find($id);
         $denuncia->categories()->detach();
         $denuncia->delete();
-        
+
 
         return redirect('/dashboard');
     }

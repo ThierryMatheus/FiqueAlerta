@@ -90,25 +90,21 @@
                                                     </label>
                                                 </div>
                                         </div>
-                                    </div> 
+                                    </div>
 
                                     <!--Ajustar o formulário para que essas informações que estão
                                         comentadas sejam salvas pelo código e não mostrem na tela-->
 
-                                    {{--<div class="flex items-center justify-end">
-                                        <x-label class="pr-2">Data de Reclamação:</x-label>
-                                        <x-input type="date" name="claim_date" class="block mt-1 w-full" required/>
-                                    </div>
-                                    <div class="flex items-center justify-end">
+                                    <div class="hidden">
                                         <x-label class="pr-2">Latitude:</x-label>
-                                        <x-input type="text" name="latitude" id="latitude" class="block mt-1 w-full"
+                                        <x-input type="text" name="latitude" id="latitude" class=""
                                                  required/>
                                     </div>
-                                    <div class="flex items-center justify-end">
+                                    <div class="hidden">
                                         <x-label class="pr-2">Longitude:</x-label>
-                                        <x-input type="text" name="longitude" id="longitude" class="block mt-1 w-full"
+                                        <x-input type="text" name="longitude" id="longitude" class=""
                                                  required/>
-                                    </div>--}}
+                                    </div>
 
                                 </fieldset>
                                 <div class="categoriesSelected flex space-x-4"></div>
@@ -170,7 +166,7 @@
                         <div class="flex">
                             <input type="checkbox" class="mr-1 rounded border-2 border-gray-700 text-gray-700">
                             <p class="text-xs mr-5">Privadas</p>
-                        </div> 
+                        </div>
                     </div>
                 </div>
                 <div class="mt-16 ml-12">
@@ -182,7 +178,7 @@
                 <div>
                     <div id="map" style="height: 595px; display: block;"></div>
                 </div>
-    
+
                 <script
                     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDy_BoYMtuOPg56qqmooJ3fq1bX1TXKucw&callback=initMap&v=weekly"
                     async
@@ -190,62 +186,62 @@
                 <script>
                     let map;
                     let marker;
-    
+
                     function initMap() {
                         map = new google.maps.Map(document.getElementById("map"), {
                             center: {lat: -8.05428, lng: -34.8813},
                             zoom: 13,
                         });
-    
+
                         map.addListener('click', (data) => {
                             let lat = data.latLng.lat();
                             let lng = data.latLng.lng();
                             const modal = document.querySelector('.modal');
                             const closeModal = document.querySelectorAll('.close-modal');
-    
-    
+
+
                             if (marker && marker.setMap) {
                                 marker.setMap(null)
                             }
-    
+
                             marker = new google.maps.Marker({
                                 position: {lat, lng},
                                 map: map,
                                 title: lat + " , " + lng,
                             });
-    
+
                             /* logica do modal */
-    
+
                             modal.classList.remove('hidden')
-    
+
                             closeModal.forEach(close => {
                                 close.addEventListener('click', function () {
                                     modal.classList.add('hidden')
                                 });
                             });
-    
-    
+
+
                             var inputLat = document.getElementById("latitude");
                             var inputLng = document.getElementById("longitude");
-    
+
                             //map.style.display = 'none';
-    
+
                             inputLat.value = lat;
                             inputLng.value = lng;
-    
+
                         });
                     };
                 </script>
-    
+
                 <script>
                     let categoriesadded = []
                     let inp = document.getElementsByName("categorias")[0]
-    
+
                     function addCategory() {
-    
+
                         let value = document.getElementById("categorias").value;
                         let name = document.getElementById(value).text;
-    
+
                         if (!categoriesadded.includes(value)) {
                             let categorySelected = document.createElement("p");
                             let title = document.createTextNode(name);
@@ -255,14 +251,14 @@
                             categorySelected.setAttribute("id", "categoria" + value);
                             let cat = "categoria" + value
                             categorySelected.setAttribute("onclick", `removeCategory(${cat})`);
-    
+
                             document.getElementsByClassName("categoriesSelected")[0].appendChild(categorySelected);
-    
+
                         }
-    
-    
+
+
                     }
-    
+
                     function removeCategory(category) {
                         let value = category.id.slice(-1)
                         let index = categoriesadded.indexOf(value);
@@ -273,12 +269,12 @@
                             inp.value = categoriesadded;
                         }
                     }
-    
-    
+
+
                 </script>
-    
+
                 <script>
-    
+
                     $(function () {
                         $.ajax({
                             url: "{{ route('denuncia_all') }}",
@@ -287,18 +283,18 @@
                             dataType: 'json',
                             success: function (response) {
                                 var json = response;
-    
+
                                 for (i = 0; i < json.length; i++) {
                                     var div = document.getElementById("complaint");
                                     var divDenuncia = document.createElement("div");
                                     var a = document.createElement("a");
-    
+
                                     divDenuncia.className = 'h-12 flex items-center bg-gray-200 rounded-md text-center pl-2';
                                     divDenuncia.id = i;
                                     a.id = i + 'denuncia';
                                     a.innerHTML = json[i]["title"];
-    
-    
+
+
                                     div.appendChild(divDenuncia);
                                     divDenuncia.appendChild(a);
                                 }
