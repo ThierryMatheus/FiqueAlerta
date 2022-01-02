@@ -281,26 +281,26 @@
                             type: "get",
                             data: $(this).serialize(),
                             dataType: 'json',
-                            success: function (response) {
+                            success: function allComplaint(response) {
                                 var json = response;
-
-                                for (i = 0; i < json.length; i++) {
-                                    var div = document.getElementById("complaint");
-                                    var divDenuncia = document.createElement("div");
-                                    var a = document.createElement("a");
-
-                                    divDenuncia.className = 'h-12 flex items-center bg-gray-200 rounded-md text-center pl-2';
-                                    divDenuncia.id = i;
-                                    a.id = i + 'denuncia';
-                                    a.innerHTML = json[i]["title"];
-
-
-                                    div.appendChild(divDenuncia);
-                                    divDenuncia.appendChild(a);
+                                
+                            
+                                
+                                  for (var i = 0; i < json.length; i++) {
+                                     
+                                    mark = new google.maps.Marker({
+                                    position: { lat: parseFloat(json[i]["latitude"]), lng: parseFloat(json[i]["longitude"])},
+                                    map: map,
+                                    title: json[i]["title"],
+                                  });
                                 }
                             }
                         });
                     });
+
+           /* setInterval(function (){
+                   allComplaint();
+                    },30000)*/
                 </script>
             </div>
         </div>
