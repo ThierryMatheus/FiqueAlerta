@@ -7,28 +7,28 @@
                     <nav class="font-sans flex flex-col text-center sm:flex-row sm:text-left sm:justify-between py-4 px-6 bg-white w-full">
                         <!-- Logo -->
                         <div class="mb-2 sm:mb-0">
-                            <a href="dashboard" class="text-2xl font-bold ml-16 tb-5">
+                            <a href="{{ route('dashboard') }}" class="text-2xl font-bold ml-16 tb-5">
                                 {{ __('Fique Alerta') }}
                             </a>
                         </div>
-        
+
                         <!-- Navigation Links -->
                         <div class="pr-2 mr-2 flex">
-                            
+
                             <a href="">
                                 <svg class="mt-2 mr-9" width="19" height="19" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M9.3052 0C14.4462 0 18.6109 4.16025 18.6109 9.29082C18.6136 10.981 18.1522 12.6396 17.2768 14.0863L21.7885 18.5909L21.7728 18.6066C22.2543 19.0668 22.55 19.7201 22.55 20.4584C22.5503 21.8848 21.4122 23.0003 19.9849 23C19.2559 22.9997 18.604 22.7085 18.1387 22.2347L18.1273 22.246L13.4723 17.598C12.1792 18.2462 10.7521 18.5831 9.3052 18.5816C4.16395 18.5816 4.95911e-05 14.422 4.95911e-05 9.29082C4.95911e-05 4.16025 4.16424 0 9.3052 0ZM9.24879 14.9283C12.4621 14.9283 15.065 12.3286 15.065 9.12155C15.065 5.91506 12.4621 3.31479 9.24879 3.31479C6.0355 3.31479 3.43318 5.91477 3.43318 9.12155C3.43289 12.3286 6.0355 14.9283 9.24879 14.9283Z" fill="black"/>
                                 </svg>
                             </a>
-                            
+
                             <a href="{{ route('denuncia.index') }}" class="mr-8 text-sm font-bold rounded-md py-1.5">Denúncias</a>
-        
+
                             <a href="" class="mr-5">
                                 <svg class="mt-2" width="17" height="18" viewBox="0 0 21 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M21 18.619V19.7143H0V18.619L2.33333 16.4286V9.85714C2.33333 6.4619 4.70167 3.4719 8.16667 2.5081V2.19048C8.16667 1.60953 8.4125 1.05237 8.85008 0.641576C9.28767 0.230782 9.88116 0 10.5 0C11.1188 0 11.7123 0.230782 12.1499 0.641576C12.5875 1.05237 12.8333 1.60953 12.8333 2.19048V2.5081C16.2983 3.4719 18.6667 6.4619 18.6667 9.85714V16.4286L21 18.619ZM12.8333 20.8095C12.8333 21.3905 12.5875 21.9476 12.1499 22.3584C11.7123 22.7692 11.1188 23 10.5 23C9.88116 23 9.28767 22.7692 8.85008 22.3584C8.4125 21.9476 8.16667 21.3905 8.16667 20.8095" fill="black"/>
                                 </svg>
                             </a>
-        
+
                                 <x-dropdown>
                                     <x-slot name="trigger">
                                         <button>
@@ -37,12 +37,12 @@
                                             </svg>
                                         </button>
                                     </x-slot>
-                
+
                                     <x-slot name="content">
                                         <!-- Authentication -->
                                         <form method="POST" action="{{ route('logout') }}">
                                             @csrf
-                
+
                                             <x-dropdown-link :href="route('logout')"
                                                     onclick="event.preventDefault();
                                                                 this.closest('form').submit();">
@@ -53,8 +53,8 @@
                                 </x-dropdown>
                         </div>
                     </nav>
-        
-        
+
+
                     <!-- Hamburger -->
                     <div class="-mr-2 flex items-center sm:hidden">
                         <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
@@ -66,7 +66,7 @@
                     </div>
                 </div>
             </div>
-        
+
             <!-- Responsive Navigation Menu -->
             <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
                 <div class="pt-2 pb-3 space-y-1">
@@ -74,19 +74,19 @@
                         {{ __('Dashboard') }}
                     </x-responsive-nav-link>
                 </div>
-        
+
                 <!-- Responsive Settings Options -->
                 <div class="pt-4 pb-1 border-t border-gray-200">
                     <div class="px-4">
                         <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
                         <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
                     </div>
-        
+
                     <div class="mt-3 space-y-1">
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-        
+
                             <x-responsive-nav-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
@@ -96,7 +96,7 @@
                     </div>
                 </div>
             </div>
-        </nav>        
+        </nav>
         @else
         <nav class="font-sans flex flex-col text-center sm:flex-row sm:text-left sm:justify-between py-4 px-6 bg-white sm:items-baseline w-full">
             <div class="mb-2 sm:mb-0">

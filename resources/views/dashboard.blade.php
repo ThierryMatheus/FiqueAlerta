@@ -41,7 +41,7 @@
                                 @csrf
                                 <fieldset>
 
-                                    <legend class="text-2xl mb-8">Denúncia</legend>
+                                    <legend class="text-2xl mb-8 text-center">Denúncia</legend>
 
                                     <div class=" items-center justify-end mt-4">
                                         <x-label class="pr-2">Título:</x-label>
@@ -283,11 +283,11 @@
                             dataType: 'json',
                             success: function allComplaint(response) {
                                 var json = response;
-                                
-                            
-                                
+
+
+
                                   for (var i = 0; i < json.length; i++) {
-                                     
+
                                     mark = new google.maps.Marker({
                                     position: { lat: parseFloat(json[i]["latitude"]), lng: parseFloat(json[i]["longitude"])},
                                     map: map,
