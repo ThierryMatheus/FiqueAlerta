@@ -125,6 +125,15 @@
         Vou criar um input hidden com o value que é um array de todas categorias selecionadas-->
         <div class="flex sm:justify-between">
             <div class="pr-6 pt-8 pl-7">
+                <div>
+                <label>Todas as Denúncias</label>
+                <button type="radio" id="buttonRadioAll" onclick="filtroAll();"></button>
+                </div>
+
+                <div>
+                <label>Minhas Denúncias</label>    
+                <button type="radio" id="buttonRadio" onclick="myComplaint();"></button>
+                </div>
                 <h3 class="font-bold pb-10 text-xl">Filtros</h3>
 
                 <div>
@@ -186,49 +195,36 @@
                 <script>
                     let map;
                     let marker;
-
                     function initMap() {
                         map = new google.maps.Map(document.getElementById("map"), {
                             center: {lat: -8.05428, lng: -34.8813},
                             zoom: 13,
                         });
-
                         map.addListener('click', (data) => {
                             let lat = data.latLng.lat();
                             let lng = data.latLng.lng();
                             const modal = document.querySelector('.modal');
                             const closeModal = document.querySelectorAll('.close-modal');
-
-
                             if (marker && marker.setMap) {
                                 marker.setMap(null)
                             }
-
                             marker = new google.maps.Marker({
                                 position: {lat, lng},
                                 map: map,
                                 title: lat + " , " + lng,
                             });
-
                             /* logica do modal */
-
                             modal.classList.remove('hidden')
-
                             closeModal.forEach(close => {
                                 close.addEventListener('click', function () {
                                     modal.classList.add('hidden')
                                 });
                             });
-
-
                             var inputLat = document.getElementById("latitude");
                             var inputLng = document.getElementById("longitude");
-
                             //map.style.display = 'none';
-
                             inputLat.value = lat;
                             inputLng.value = lng;
-
                         });
                     };
                 </script>
@@ -236,12 +232,9 @@
                 <script>
                     let categoriesadded = []
                     let inp = document.getElementsByName("categorias")[0]
-
                     function addCategory() {
-
                         let value = document.getElementById("categorias").value;
                         let name = document.getElementById(value).text;
-
                         if (!categoriesadded.includes(value)) {
                             let categorySelected = document.createElement("p");
                             let title = document.createTextNode(name);
@@ -251,14 +244,9 @@
                             categorySelected.setAttribute("id", "categoria" + value);
                             let cat = "categoria" + value
                             categorySelected.setAttribute("onclick", `removeCategory(${cat})`);
-
                             document.getElementsByClassName("categoriesSelected")[0].appendChild(categorySelected);
-
                         }
-
-
                     }
-
                     function removeCategory(category) {
                         let value = category.id.slice(-1)
                         let index = categoriesadded.indexOf(value);
@@ -269,38 +257,106 @@
                             inp.value = categoriesadded;
                         }
                     }
-
-
                 </script>
 
                 <script>
-
-                    $(function () {
+                    var arrayMarker = [];
+                    
+                
+                    
+                     
+                     
+                    function complaintAll() {
                         $.ajax({
                             url: "{{ route('denuncia_all') }}",
                             type: "get",
                             data: $(this).serialize(),
                             dataType: 'json',
-                            success: function allComplaint(response) {
+                            success: function (response) {
                                 var json = response;
-
-
-
                                   for (var i = 0; i < json.length; i++) {
-
                                     mark = new google.maps.Marker({
                                     position: { lat: parseFloat(json[i]["latitude"]), lng: parseFloat(json[i]["longitude"])},
                                     map: map,
                                     title: json[i]["title"],
                                   });
+                                   arrayMarker.push(mark);
                                 }
                             }
                         });
-                    });
+                    }
 
-           /* setInterval(function (){
-                   allComplaint();
-                    },30000)*/
+                    console.log(arrayMarker);
+
+                   var myArrayMarker = [];
+
+                     function myComplaint() {
+
+
+                       $.ajax({
+                          url: "{{ route('denuncia_my') }}",
+                          dataType: "json",
+                          success: function (response){
+                              
+                              document.getElementById("buttonRadio").checked = true;
+                              
+                              for (var i = 0; i < arrayMarker.length; i++ ) {
+                              arrayMarker[i].setMap(null);
+                              }
+                              arrayMarker.length = 0;
+
+                              var myJson = response;
+                              
+                              
+                             
+                              for (var j = 0; j < myJson.length; j++) {
+                                  mark = new google.maps.Marker({
+                                    position: { lat: parseFloat(myJson[j]["latitude"]), lng: parseFloat(myJson[j]["longitude"])},
+                                    map: map,
+                                    title: myJson[j]["title"],
+                                  });
+                                   myArrayMarker.push(mark);
+                              }
+                              
+                          }
+                       })
+                       }
+                    
+         
+
+          function filtroAll() {
+             
+             $.ajax({
+                url: "{{ route('denuncia_all') }}",
+                dataType: "json",
+                success: function (response) {
+                    
+                        for (var i = 0; i < myArrayMarker.length; i++ ) {
+                              myArrayMarker[i].setMap(null);
+                              }
+                              myArrayMarker.length = 0;
+
+                             var jsonResponse = response;
+                              for (var j = 0; j < jsonResponse.length; j++) {
+                                  mark = new google.maps.Marker({
+                                    position: { lat: parseFloat(jsonResponse[j]["latitude"]), lng: parseFloat(jsonResponse[j]["longitude"])},
+                                    map: map,
+                                    title: jsonResponse[j]["title"],
+                                  });
+                                   arrayMarker.push(mark);
+                              }
+
+                }
+             })
+
+          }
+                    
+
+
+
+       $(document).ready(function(){
+        complaintAll();
+       })
                 </script>
             </div>
         </div>

@@ -32,6 +32,7 @@ Route::group(['middleware' => ['auth', 'company_registration_completed']], funct
     Route::resource('/reclamante', ComplainantController::class);
     Route::delete('/denuncia/{id}', [DenunciaController::class, 'destroy'])->name('excluir_denuncia');
     Route::get('/denuncia2', [DenunciaController::class, 'all'])->name('denuncia_all');
+    Route::get('/myDenuncia', [DenunciaController::class, 'my'])->name('denuncia_my');
 });
 
 

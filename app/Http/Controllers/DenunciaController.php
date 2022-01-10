@@ -20,6 +20,13 @@ class DenunciaController extends Controller
         echo json_encode($denuncia);
     }
 
+    public function my() {
+        
+        $denuncia = Auth::user()->complaint;
+
+        echo json_encode($denuncia);
+    }
+
     /**
      * Display a listing of the resource.
      *
