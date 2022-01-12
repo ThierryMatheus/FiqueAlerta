@@ -127,12 +127,12 @@
             <div class="pr-6 pt-8 pl-7">
                 <div>
                 <label>Todas as Denúncias</label>
-                <button type="radio" id="buttonRadioAll" onclick="filtroAll();"></button>
+                <input type="checkbox" id="buttonRadioAll" onclick="filtroAll();" checked>
                 </div>
 
                 <div>
                 <label>Minhas Denúncias</label>    
-                <button type="radio" id="buttonRadio" onclick="myComplaint();"></button>
+                <input type="checkbox" id="buttonRadio" onclick="myComplaint();">
                 </div>
                 <h3 class="font-bold pb-10 text-xl">Filtros</h3>
 
@@ -274,19 +274,51 @@
                             dataType: 'json',
                             success: function (response) {
                                 var json = response;
+
+                            
+
                                   for (var i = 0; i < json.length; i++) {
+
+                                    var contentString = "<h1>"+json[i]["title"]+"</h1>";
+                                    
+
                                     mark = new google.maps.Marker({
                                     position: { lat: parseFloat(json[i]["latitude"]), lng: parseFloat(json[i]["longitude"])},
                                     map: map,
                                     title: json[i]["title"],
+                                    comment: json[i]["comment"],
                                   });
-                                   arrayMarker.push(mark);
+                                   
+
+                                  arrayMarker.push(mark);
                                 }
+                                
+                                console.log(arrayMarker);
+                            
+                              var infowindow = new google.maps.InfoWindow();
+
+
+                               for (var i = 0, marker; marker = arrayMarker[i]; i++) {
+                                  
+                                  const modal = document.getElementById("modal-marker");
+
+                                 google.maps.event.addListener(marker, 'click', function(e) {
+                                   modal.classList.remove('hidden')
+                                   $("#closeMarker").click(function(){
+                                        $("#modal-marker").addClass('hidden');
+                                   })
+
+                                   $("#title").html(this.getTitle())
+                                   $("#positionModal").html(this.getPosition())
+                                 });
+                               }
                             }
                         });
                     }
 
-                    console.log(arrayMarker);
+
+
+                    
 
                    var myArrayMarker = [];
 
@@ -298,7 +330,8 @@
                           dataType: "json",
                           success: function (response){
                               
-                              document.getElementById("buttonRadio").checked = true;
+                             document.getElementById("buttonRadioAll").checked = false;
+                             document.getElementById("buttonRadio").checked = true;
                               
                               for (var i = 0; i < arrayMarker.length; i++ ) {
                               arrayMarker[i].setMap(null);
@@ -331,6 +364,10 @@
                 dataType: "json",
                 success: function (response) {
                     
+                    document.getElementById("buttonRadioAll").checked = true;
+                    document.getElementById("buttonRadio").checked = false;
+
+
                         for (var i = 0; i < myArrayMarker.length; i++ ) {
                               myArrayMarker[i].setMap(null);
                               }
@@ -360,4 +397,42 @@
                 </script>
             </div>
         </div>
+
+        <div id="modal-marker" class="modal h-screen w-full fixed left-0 top-0 flex justify-center items-center bg-black bg-opacity-50 hidden z-50">
+        <!-- modal -->
+        <div class="bg-white rounded shadow-lg">
+            <!-- modal header -->
+            <div class="px-4 py-4 flex justify-between items-center">
+                <h3 class=""></h3>
+                <button id="closeMarker" class="text-lg text-black close-modal">
+                    <svg width="13" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15.3837 13.233C15.5875 13.4292 15.7012 13.6937 15.7001 13.9689C15.6989 14.2441 15.5829 14.5077 15.3774 14.7022C15.1719 14.8968 14.8935 15.0066 14.6029 15.0078C14.3123 15.0089 14.033 14.9012 13.8258 14.7082L7.99481 9.18704L2.16383 14.7082C1.95666 14.9012 1.67734 15.0089 1.38672 15.0078C1.0961 15.0066 0.817721 14.8968 0.612219 14.7022C0.406717 14.5077 0.290743 14.2441 0.28956 13.9689C0.288377 13.6937 0.402079 13.4292 0.605901 13.233L6.43679 7.71177L0.605901 2.1905C0.402079 1.99433 0.288377 1.72985 0.28956 1.45467C0.290743 1.17948 0.406717 0.915888 0.612219 0.721301C0.817721 0.526714 1.0961 0.416901 1.38672 0.41578C1.67734 0.41466 1.95666 0.522323 2.16383 0.715319L7.99481 6.23651L13.8258 0.715319C14.033 0.522323 14.3123 0.41466 14.6029 0.41578C14.8935 0.416901 15.1719 0.526714 15.3774 0.721301C15.5829 0.915888 15.6989 1.17948 15.7001 1.45467C15.7012 1.72985 15.5875 1.99433 15.3837 2.1905L9.55283 7.71177L15.3837 13.233Z" fill="black" fill-opacity="0.6"/>
+                    </svg>
+                </button>
+            </div>
+            <!-- modal body -->
+            <div id="modal">
+                <div class="max-w-5xl mx-auto" id="form">
+                    <div class="bg-white rounded shadow-sm">
+                        <div class="pl-10 pr-10 pb-8">
+                            @if ($errors->any())
+                                <div class="alert alert-danger text-red-600">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                            
+                         <h1 id="title"></h1>
+
+                         <p class="text-justify" id="positionModal"></p>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </x-app-layout>
