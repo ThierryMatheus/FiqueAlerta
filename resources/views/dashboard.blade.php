@@ -125,6 +125,8 @@
         Vou criar um input hidden com o value que é um array de todas categorias selecionadas-->
         <div class="flex sm:justify-between">
             <div class="pr-6 pt-8 pl-7">
+                <h3 class="font-bold pb-10 text-xl">Filtros</h3>
+
                 <div>
                 <label>Todas as Denúncias</label>
                 <input type="checkbox" id="buttonRadioAll" onclick="filtroAll();" checked>
@@ -134,10 +136,9 @@
                 <label>Minhas Denúncias</label>    
                 <input type="checkbox" id="buttonRadio" onclick="myComplaint();">
                 </div>
-                <h3 class="font-bold pb-10 text-xl">Filtros</h3>
-
-                <div>
-                    <p class="text-sm font-light pb-2">Localização</p>
+                
+                <div class="mt-3">
+                    <p class="text-sm font-light pb-2 ">Localização</p>
                     <div class="border-b border-b-4 border-black">
                         <select name="type" id="type" class="block pt-0 border-none bg-transparent pr-56 pl-0 pb-0 font-light text-sm">
                             <option value="1"></option>
@@ -312,6 +313,10 @@
                                    $("#positionModal").html(this.getPosition())
                                  });
                                }
+
+
+
+
                             }
                         });
                     }
@@ -350,7 +355,25 @@
                                   });
                                    myArrayMarker.push(mark);
                               }
-                              
+
+                              var infowindow = new google.maps.InfoWindow();
+
+
+                               for (var i = 0, marker; marker = myArrayMarker[i]; i++) {
+                                  
+                                  const modal = document.getElementById("modal-marker");
+
+                                 google.maps.event.addListener(marker, 'click', function(e) {
+                                   modal.classList.remove('hidden')
+                                   $("#closeMarker").click(function(){
+                                        $("#modal-marker").addClass('hidden');
+                                   })
+
+                                   $("#title").html(this.getTitle())
+                                   $("#positionModal").html(this.getPosition())
+                                 });
+                                 
+                               }
                           }
                        })
                        }
@@ -382,7 +405,23 @@
                                   });
                                    arrayMarker.push(mark);
                               }
+                              var infowindow = new google.maps.InfoWindow();
 
+                                for (var i = 0, marker; marker = arrayMarker[i]; i++) {
+                                
+                                const modal = document.getElementById("modal-marker");
+
+                                google.maps.event.addListener(marker, 'click', function(e) {
+                                    modal.classList.remove('hidden')
+                                    $("#closeMarker").click(function(){
+                                        $("#modal-marker").addClass('hidden');
+                                    })
+
+                                    $("#title").html(this.getTitle())
+                                    $("#positionModal").html(this.getPosition())
+                                });
+                                
+                                }
                 }
              })
 
