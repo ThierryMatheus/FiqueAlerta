@@ -348,10 +348,15 @@
                               
                              
                               for (var j = 0; j < myJson.length; j++) {
+                                let icon = {
+                                    url :  "{{ asset('icons/mblue.png') }}",
+                                   scaledSize : new google.maps.Size (30,50)
+                                        }  
                                   mark = new google.maps.Marker({
                                     position: { lat: parseFloat(myJson[j]["latitude"]), lng: parseFloat(myJson[j]["longitude"])},
                                     map: map,
                                     title: myJson[j]["title"],
+                                    icon: icon
                                   });
                                    myArrayMarker.push(mark);
                               }
