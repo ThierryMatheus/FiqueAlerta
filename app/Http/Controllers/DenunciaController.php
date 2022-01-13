@@ -16,15 +16,65 @@ class DenunciaController extends Controller
     public function all() {
 
         $denuncia = Complaint::all();
+        
+        $i = 0;
+        foreach ($denuncia as $d) {
+           $categoria = $d::find($d->id)->categories;
 
-        echo json_encode($denuncia);
+           $array[$i]["id"] = $d->id;
+           $array[$i]["title"] = $d->title;
+           $array[$i]["comment"] = $d->comment;
+           $array[$i]["latitude"] = $d->latitude;
+           $array[$i]["longitude"] = $d->longitude;
+           $array[$i]["user_id"] = $d->user_id;
+           $array[$i]["category"] = $categoria[0]["name"];
+           $i++;
+        }
+
+        echo json_encode($array);
     }
 
     public function my() {
         
         $denuncia = Auth::user()->complaint;
 
-        echo json_encode($denuncia);
+        $i = 0;
+        foreach ($denuncia as $d) {
+           $categoria = $d::find($d->id)->categories;
+
+           $array[$i]["id"] = $d->id;
+           $array[$i]["title"] = $d->title;
+           $array[$i]["comment"] = $d->comment;
+           $array[$i]["latitude"] = $d->latitude;
+           $array[$i]["longitude"] = $d->longitude;
+           $array[$i]["user_id"] = $d->user_id;
+           $array[$i]["category"] = $categoria[0]["name"];
+           $i++;
+        }
+
+        echo json_encode($array);
+    }
+
+
+
+    public function forModal($id){
+   
+
+    if ($id) {
+        $denuncia = Complaint::find($id);
+        $category = $denuncia::find($denuncia->id)->categories;
+
+        $array["title"] = $denuncia->title;
+        $array["comment"] = $denuncia->comment;
+        $array["position"] = $denuncia->latitude.", ".$denuncia->longitude;
+        $array["data"] = $denuncia->created_at;
+        $array["category"] = $category[0]["name"];
+
+        echo json_encode($array);
+    } else {
+        echo "erro";
+    }
+
     }
 
     /**
