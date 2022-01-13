@@ -194,6 +194,27 @@
                     async
                 ></script>
                 <script>
+                     function forModal(id_denuncia) {
+                         var id = id_denuncia;
+                         
+                         $.ajax({
+                            url: "/forModal/"+id,
+                            method: "GET",
+                            dataType: "json",
+                            success: function (response){
+                              
+                              var array = response;
+
+                              $("#title").html(array["title"]);
+                              $("#commentModal").html(array["comment"]);
+                              $("#positionModal").html(array["position"]);
+                              $("#data").html(array["created_at"]);
+                              $("#categoriaModal").html(array["category"]);
+                            }
+                         })
+                     }
+
+
                     let map;
                     let marker;
                     function initMap() {
@@ -288,19 +309,21 @@
                                     map: map,
                                     title: json[i]["title"],
                                     comment: json[i]["comment"],
+                                    identified: json[i]["id"], 
                                   });
                                    
 
                                   arrayMarker.push(mark);
                                 }
                                 
-                                console.log(arrayMarker);
+                                
                             
                               var infowindow = new google.maps.InfoWindow();
 
 
-                               for (var i = 0, marker; marker = arrayMarker[i]; i++) {
+                               for (var j = 0; j < arrayMarker.length; j++) {
                                   
+                                  let marker = arrayMarker[j];
                                   const modal = document.getElementById("modal-marker");
 
                                  google.maps.event.addListener(marker, 'click', function(e) {
@@ -309,8 +332,7 @@
                                         $("#modal-marker").addClass('hidden');
                                    })
 
-                                   $("#title").html(this.getTitle())
-                                   $("#positionModal").html(this.getPosition())
+                                      forModal(marker["identified"]);
                                  });
                                }
 
@@ -356,7 +378,8 @@
                                     position: { lat: parseFloat(myJson[j]["latitude"]), lng: parseFloat(myJson[j]["longitude"])},
                                     map: map,
                                     title: myJson[j]["title"],
-                                    icon: icon
+                                    icon: icon,
+                                    identified: myJson[j]["id"]
                                   });
                                    myArrayMarker.push(mark);
                               }
@@ -364,8 +387,9 @@
                               var infowindow = new google.maps.InfoWindow();
 
 
-                               for (var i = 0, marker; marker = myArrayMarker[i]; i++) {
+                               for (var j = 0; j < myArrayMarker.length; j++) {
                                   
+                                  let marker = myArrayMarker[j];
                                   const modal = document.getElementById("modal-marker");
 
                                  google.maps.event.addListener(marker, 'click', function(e) {
@@ -374,10 +398,8 @@
                                         $("#modal-marker").addClass('hidden');
                                    })
 
-                                   $("#title").html(this.getTitle())
-                                   $("#positionModal").html(this.getPosition())
+                                      forModal(marker["identified"]);
                                  });
-                                 
                                }
                           }
                        })
@@ -407,26 +429,26 @@
                                     position: { lat: parseFloat(jsonResponse[j]["latitude"]), lng: parseFloat(jsonResponse[j]["longitude"])},
                                     map: map,
                                     title: jsonResponse[j]["title"],
+                                    identified: jsonResponse[j]["id"]
                                   });
                                    arrayMarker.push(mark);
                               }
                               var infowindow = new google.maps.InfoWindow();
 
-                                for (var i = 0, marker; marker = arrayMarker[i]; i++) {
-                                
-                                const modal = document.getElementById("modal-marker");
+                                for (var j = 0; j < arrayMarker.length; j++) {
+                                  
+                                  let marker = arrayMarker[j];
+                                  const modal = document.getElementById("modal-marker");
 
-                                google.maps.event.addListener(marker, 'click', function(e) {
-                                    modal.classList.remove('hidden')
-                                    $("#closeMarker").click(function(){
+                                 google.maps.event.addListener(marker, 'click', function(e) {
+                                   modal.classList.remove('hidden')
+                                   $("#closeMarker").click(function(){
                                         $("#modal-marker").addClass('hidden');
-                                    })
+                                   })
 
-                                    $("#title").html(this.getTitle())
-                                    $("#positionModal").html(this.getPosition())
-                                });
-                                
-                                }
+                                      forModal(marker["identified"]);
+                                 });
+                               }
                 }
              })
 
@@ -468,11 +490,24 @@
                                     </ul>
                                 </div>
                             @endif
-                            
-                         <h1 id="title"></h1>
+                         
+                         <div class="text-2xl">    
+                         <legend class="text-center" id="title"></legend>
+                         </div>
+                         
+                         <div class="border mt-3">
+                         <p class="text-center">Descrição: <span id="commentModal"></span></p>
+                         </div>
 
-                         <p class="text-justify" id="positionModal"></p>
-                            
+                         <div class="mt-3">    
+                         <p class="text-center" id="categoriaModal"></p>
+                         </div>
+                         <div class="mt-3">    
+                         <p class="text-center" id="positionModal"></p>
+                         </div>
+                         <div class="mt-3">    
+                         <p  class="text-center" id="data"></p>   
+                         </div>
                         </div>
                     </div>
                 </div>
