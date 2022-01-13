@@ -18,6 +18,9 @@ switch ($width) {
     case '48':
         $width = 'w-20';
         break;
+    case 'auto':
+        $width = 'w-auto';
+        break;
 }
 @endphp
 

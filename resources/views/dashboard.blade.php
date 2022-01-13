@@ -123,7 +123,7 @@
 
     <!-- preciso pensar num jeito de pegar o nome da categoria no javascript
         Vou criar um input hidden com o value que é um array de todas categorias selecionadas-->
-        <div class="flex sm:justify-between">
+        <div class="flex justify-center">
             <div class="pr-6 pt-8 pl-7">
                 <h3 class="font-bold pb-10 text-xl">Filtros</h3>
 
@@ -133,10 +133,17 @@
                 </div>
 
                 <div>
-                <label>Minhas Denúncias</label>    
-                <input type="checkbox" id="buttonRadio" onclick="myComplaint();">
+                    @php
+                        if (Auth::user()->complaint->isEmpty()) {
+                            $disabled = true;
+                        } else {
+                            $disabled = false;
+                        }
+                    @endphp
+                    <label class="{{ $disabled ? 'text-gray-400' : ''}}">Minhas Denúncias</label>
+                    <input type="checkbox" {{ $disabled ? 'disabled' : '' }} id="buttonRadio" onclick="myComplaint();">
                 </div>
-                
+
                 <div class="mt-3">
                     <p class="text-sm font-light pb-2 ">Localização</p>
                     <div class="border-b border-b-4 border-black">
@@ -196,20 +203,26 @@
                 <script>
                      function forModal(id_denuncia) {
                          var id = id_denuncia;
-                         
+
                          $.ajax({
                             url: "/forModal/"+id,
                             method: "GET",
                             dataType: "json",
                             success: function (response){
-                              
+
                               var array = response;
 
                               $("#title").html(array["title"]);
                               $("#commentModal").html(array["comment"]);
-                              $("#positionModal").html(array["position"]);
+                            //   $("#positionModal").html(array["position"]);
                               $("#data").html(array["created_at"]);
                               $("#categoriaModal").html(array["category"]);
+                            //   $('#modal-map').html();
+                            console.log({lat: array["position"].split(', ')[0], lng: array["position"].split(', ')[1]})
+                              map = new google.maps.Map(document.getElementById("modal-map"), {
+                                  center: {lat: +array["position"].split(', ')[0], lng: +array["position"].split(', ')[1]},
+                                  zoom: 15,
+                              });
                             }
                          })
                      }
@@ -283,11 +296,11 @@
 
                 <script>
                     var arrayMarker = [];
-                    
-                
-                    
-                     
-                     
+
+
+
+
+
                     function complaintAll() {
                         $.ajax({
                             url: "{{ route('denuncia_all') }}",
@@ -297,32 +310,32 @@
                             success: function (response) {
                                 var json = response;
 
-                            
+
 
                                   for (var i = 0; i < json.length; i++) {
 
                                     var contentString = "<h1>"+json[i]["title"]+"</h1>";
-                                    
+
 
                                     mark = new google.maps.Marker({
                                     position: { lat: parseFloat(json[i]["latitude"]), lng: parseFloat(json[i]["longitude"])},
                                     map: map,
                                     title: json[i]["title"],
                                     comment: json[i]["comment"],
-                                    identified: json[i]["id"], 
+                                    identified: json[i]["id"],
                                   });
-                                   
+
 
                                   arrayMarker.push(mark);
                                 }
-                                
-                                
-                            
+
+
+
                               var infowindow = new google.maps.InfoWindow();
 
 
                                for (var j = 0; j < arrayMarker.length; j++) {
-                                  
+
                                   let marker = arrayMarker[j];
                                   const modal = document.getElementById("modal-marker");
 
@@ -345,7 +358,7 @@
 
 
 
-                    
+
 
                    var myArrayMarker = [];
 
@@ -356,24 +369,24 @@
                           url: "{{ route('denuncia_my') }}",
                           dataType: "json",
                           success: function (response){
-                              
+
                              document.getElementById("buttonRadioAll").checked = false;
                              document.getElementById("buttonRadio").checked = true;
-                              
+
                               for (var i = 0; i < arrayMarker.length; i++ ) {
                               arrayMarker[i].setMap(null);
                               }
                               arrayMarker.length = 0;
 
                               var myJson = response;
-                              
-                              
-                             
+
+
+
                               for (var j = 0; j < myJson.length; j++) {
                                 let icon = {
                                     url :  "{{ asset('icons/mblue.png') }}",
                                    scaledSize : new google.maps.Size (30,50)
-                                        }  
+                                        }
                                   mark = new google.maps.Marker({
                                     position: { lat: parseFloat(myJson[j]["latitude"]), lng: parseFloat(myJson[j]["longitude"])},
                                     map: map,
@@ -388,7 +401,7 @@
 
 
                                for (var j = 0; j < myArrayMarker.length; j++) {
-                                  
+
                                   let marker = myArrayMarker[j];
                                   const modal = document.getElementById("modal-marker");
 
@@ -404,16 +417,16 @@
                           }
                        })
                        }
-                    
-         
+
+
 
           function filtroAll() {
-             
+
              $.ajax({
                 url: "{{ route('denuncia_all') }}",
                 dataType: "json",
                 success: function (response) {
-                    
+
                     document.getElementById("buttonRadioAll").checked = true;
                     document.getElementById("buttonRadio").checked = false;
 
@@ -436,7 +449,7 @@
                               var infowindow = new google.maps.InfoWindow();
 
                                 for (var j = 0; j < arrayMarker.length; j++) {
-                                  
+
                                   let marker = arrayMarker[j];
                                   const modal = document.getElementById("modal-marker");
 
@@ -453,7 +466,7 @@
              })
 
           }
-                    
+
 
 
 
@@ -490,23 +503,24 @@
                                     </ul>
                                 </div>
                             @endif
-                         
-                         <div class="text-2xl">    
+
+                         <div class="text-2xl">
                          <legend class="text-center" id="title"></legend>
                          </div>
-                         
+
                          <div class="border mt-3">
                          <p class="text-center">Descrição: <span id="commentModal"></span></p>
                          </div>
 
-                         <div class="mt-3">    
+                         <div class="mt-3">
                          <p class="text-center" id="categoriaModal"></p>
                          </div>
-                         <div class="mt-3">    
-                         <p class="text-center" id="positionModal"></p>
+                         <div class="mt-3">
+                         {{-- <p class="text-center" id="positionModal"></p> --}}
+                         <div id="modal-map" style="height: 200px; display: block;"></div>
                          </div>
-                         <div class="mt-3">    
-                         <p  class="text-center" id="data"></p>   
+                         <div class="mt-3">
+                         <p  class="text-center" id="data"></p>
                          </div>
                         </div>
                     </div>
