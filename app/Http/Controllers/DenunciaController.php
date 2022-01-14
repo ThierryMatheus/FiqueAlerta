@@ -63,11 +63,13 @@ class DenunciaController extends Controller
     if ($id) {
         $denuncia = Complaint::find($id);
         $category = $denuncia::find($denuncia->id)->categories;
-
+        
+        $array["id"] = $denuncia->id;
         $array["title"] = $denuncia->title;
         $array["comment"] = $denuncia->comment;
         $array["position"] = $denuncia->latitude.", ".$denuncia->longitude;
         $array["data"] = $denuncia->created_at;
+        $array["user_id"] = $denuncia->user_id;
         $array["category"] = $category[0]["name"];
 
         echo json_encode($array);
@@ -227,9 +229,22 @@ class DenunciaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         $denuncia = Complaint::find($id);
+        $denuncia->categories()->detach();
+        $denuncia->delete();
+
+
+        return redirect('/dashboard');
+    }
+
+    public function destroyModal() {
+
+        $id = $_POST['id'];
+
+        $denuncia = Complaint::find($id);
+
+        
         $denuncia->categories()->detach();
         $denuncia->delete();
 

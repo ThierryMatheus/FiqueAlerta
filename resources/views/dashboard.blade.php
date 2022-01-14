@@ -211,6 +211,19 @@
                             success: function (response){
 
                               var array = response;
+                              var user = <?=Auth::user()->id?>;
+                              var idDenuncia = array["id"];
+                        
+
+                               
+                            if (user == array["user_id"]) {
+                                 $("#drop").removeClass('hidden');
+                                 $("#idFormodal").val(idDenuncia);
+
+                            } else {
+                                $("#drop").addClass('hidden');
+                            }
+
 
                               $("#title").html(array["title"]);
                               $("#commentModal").html(array["comment"]);
@@ -489,6 +502,28 @@
         <div class="bg-white rounded shadow-lg">
             <!-- modal header -->
             <div class="px-4 py-4 flex justify-between items-center">
+                <div id="drop">
+                <x-dropdown>
+                                <x-slot name="trigger" class="">
+                                    <button>
+                                        <svg width="4" height="15" viewBox="0 0 4 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M3.119 12.9532C3.119 13.3386 2.98867 13.6672 2.728 13.9392C2.456 14.2112 2.116 14.3472 1.708 14.3472C1.28867 14.3472 0.948667 14.2169 0.688 13.9562C0.427333 13.6842 0.297 13.3499 0.297 12.9532C0.297 12.5566 0.427333 12.2279 0.688 11.9672C0.948667 11.6952 1.28867 11.5592 1.708 11.5592C2.116 11.5592 2.456 11.6952 2.728 11.9672C2.98867 12.2392 3.119 12.5679 3.119 12.9532ZM3.119 7.50461C3.119 7.88994 2.98867 8.21861 2.728 8.49061C2.456 8.76261 2.116 8.89861 1.708 8.89861C1.28867 8.89861 0.948667 8.76827 0.688 8.50761C0.427333 8.23561 0.297 7.90127 0.297 7.50461C0.297 7.10794 0.427333 6.77927 0.688 6.51861C0.948667 6.24661 1.28867 6.11061 1.708 6.11061C2.116 6.11061 2.456 6.24661 2.728 6.51861C2.98867 6.79061 3.119 7.11927 3.119 7.50461ZM3.119 2.05597C3.119 2.44131 2.98867 2.76997 2.728 3.04197C2.456 3.31397 2.116 3.44997 1.708 3.44997C1.28867 3.44997 0.948667 3.31964 0.688 3.05897C0.427333 2.78697 0.297 2.45264 0.297 2.05597C0.297 1.65931 0.427333 1.33064 0.688 1.06997C0.948667 0.797974 1.28867 0.661974 1.708 0.661974C2.116 0.661974 2.456 0.797974 2.728 1.06997C2.98867 1.34197 3.119 1.67064 3.119 2.05597Z" fill="black"/>
+                                        </svg>
+                                    </button>
+                                </x-slot>
+            
+                                <x-slot name="content" class="w-0">
+                                        <form action="{{ route('deleteOnmodal') }}" method="POST" class="text-left block px-3 py-2 text-sm leading-5 text-gray-600 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
+                                                @csrf
+                                                
+                                                <input type="hidden" name="id" id="idFormodal">
+                                                <button type="submit" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</button>
+                                            </form>
+                                </x-slot>
+                      </x-dropdown> 
+                      </div>         
+
+
                 <h3 class=""></h3>
                 <button id="closeMarker" class="text-lg text-black close-modal">
                     <svg width="13" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -510,7 +545,7 @@
                                     </ul>
                                 </div>
                             @endif
-
+                         <div class="container-md p-4">
                          <div class="text-2xl">
                          <legend class="text-center" id="title"></legend>
                          </div>
@@ -529,6 +564,7 @@
                          <div class="mt-3">
                          <p  class="text-center" id="data"></p>
                          </div>
+                        </div>
                         </div>
                     </div>
                 </div>
