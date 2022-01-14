@@ -7,14 +7,14 @@
         </div>
     </x-slot>
 
-<div class="flex flex-col bg-white">
-    <div class="flex flex-col max-w-5xl ml-14 mt-5">
-        <div class="align-middle inline-block min-w-full ml-8">
+<div class=" container">
+    <div class=" max-w-5xl ml-14 mt-5">
+        <div class="align-middle inline-block ml-8">
             <div class="overflow-auto" style="height: 430px;">
             <table class="border-gray-200 w-full">
                 <thead>
                 <tr class="bg-gray-50 sm:text-left bg-gray-50">
-                    <th class="pr-12 pl-3 py-3 text-left text-xs text-gray-500 tracking-wider font-semibold flex sm:justify-between">
+                    <th class="pr-12 pl-3 py-3 text-left text-xs text-gray-500 tracking-wider font-semibold">
                         <div class="border-b border-b-4 border-black w-52 -mr-52">
                            <x-input id="search" type="search" class="text-sm -mr-20"/>
                         </div>

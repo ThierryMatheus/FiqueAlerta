@@ -225,11 +225,11 @@
                             }
 
 
-                              $("#title").html(array["title"]);
-                              $("#commentModal").html(array["comment"]);
+                              $("#title").val(array["title"]);
+                              $("#commentModal").val(array["comment"]);
                             //   $("#positionModal").html(array["position"]);
-                              $("#data").html(array["created_at"]);
-                              $("#categoriaModal").html(array["category"]);
+                              $("#data").val(array["created_at"]);
+                              $("#categoriaModal").val(array["category"]);
                             //   $('#modal-map').html();
                             console.log({lat: array["position"].split(', ')[0], lng: array["position"].split(', ')[1]})
                               map = new google.maps.Map(document.getElementById("modal-map"), {
@@ -532,7 +532,7 @@
                 </button>
             </div>
             <!-- modal body -->
-            <div id="modal">
+            <div class="py-3 px-7" id="modal">
                 <div class="max-w-5xl mx-auto" id="form">
                     <div class="bg-white rounded shadow-sm">
                         <div class="pl-10 pr-10 pb-8">
@@ -547,19 +547,20 @@
                             @endif
                          <div class="container-md p-4">
                          <div class="text-2xl">
-                         <legend class="text-center" id="title"></legend>
+                         <label>Titulo: </label>    
+                         <input class="text-center" id="title">
                          </div>
 
                          <div class="border mt-3">
-                         <p class="text-center">Descrição: <span id="commentModal"></span></p>
+                         <input class="text-center">Descrição: <input id="commentModal">
                          </div>
 
                          <div class="mt-3">
-                         <p class="text-center" id="categoriaModal"></p>
+                         <input class="text-center" id="categoriaModal">
                          </div>
                          <div class="mt-3">
                          {{-- <p class="text-center" id="positionModal"></p> --}}
-                         <div id="modal-map" style="height: 200px; display: block;"></div>
+                         <div id="modal-map" style="height: 300px; width:550px; display: block;"></div>
                          </div>
                          <div class="mt-3">
                          <p  class="text-center" id="data"></p>
