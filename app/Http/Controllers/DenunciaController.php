@@ -28,6 +28,7 @@ class DenunciaController extends Controller
            $array[$i]["longitude"] = $d->longitude;
            $array[$i]["user_id"] = $d->user_id;
            $array[$i]["category"] = $categoria[0]["name"];
+           $array[$i]["category_id"] = $categoria[0]["id"];
            $i++;
         }
 
@@ -47,6 +48,7 @@ class DenunciaController extends Controller
            $array[$i]["comment"] = $d->comment;
            $array[$i]["latitude"] = $d->latitude;
            $array[$i]["longitude"] = $d->longitude;
+           $array[$i]["category_id"] = $categoria[0]["id"];
            $array[$i]["user_id"] = $d->user_id;
            $array[$i]["category"] = $categoria[0]["name"];
            $i++;

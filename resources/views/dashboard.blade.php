@@ -397,7 +397,7 @@
 
                               for (var j = 0; j < myJson.length; j++) {
                                 let icon = {
-                                    url :  "{{ asset('icons/mblue.png') }}",
+                                    url :  `{{ asset('icons') }}/${myJson[j]["category_id"]}.png`,
                                    scaledSize : new google.maps.Size (30,50)
                                         }
                                   mark = new google.maps.Marker({
