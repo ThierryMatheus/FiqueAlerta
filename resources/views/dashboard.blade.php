@@ -158,7 +158,7 @@
                 <div>
                     <p class="text-sm font-light pb-3 pt-8">Distancia</p>
                     <div>
-                        <input type="range" class="w-full">
+                        <input id="zoom" type="range" min="8" max="24" value="13" step="1" class="w-full" onchange="zoomMap()">
                     </div>
                 </div>
 
@@ -473,6 +473,13 @@
        $(document).ready(function(){
         complaintAll();
        })
+
+       function zoomMap(){
+        range = document.getElementById("zoom");
+        value = parseInt(range.value)
+        console.log(value)
+        map.setZoom(value);
+       }
                 </script>
             </div>
         </div>
