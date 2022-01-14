@@ -327,12 +327,18 @@
 
                                   for (var i = 0; i < json.length; i++) {
 
+                                    let icon = {
+                                    url :  `{{ asset('icons') }}/${json[i]["category_id"]}.png`,
+                                   scaledSize : new google.maps.Size (30,50)
+                                        }
+
                                     var contentString = "<h1>"+json[i]["title"]+"</h1>";
 
 
                                     mark = new google.maps.Marker({
                                     position: { lat: parseFloat(json[i]["latitude"]), lng: parseFloat(json[i]["longitude"])},
                                     map: map,
+                                    icon:icon,
                                     title: json[i]["title"],
                                     comment: json[i]["comment"],
                                     identified: json[i]["id"],
@@ -451,9 +457,16 @@
 
                              var jsonResponse = response;
                               for (var j = 0; j < jsonResponse.length; j++) {
+
+                                let icon = {
+                                    url :  `{{ asset('icons') }}/${jsonResponse[j]["category_id"]}.png`,
+                                   scaledSize : new google.maps.Size (30,50)
+                                        }
+
                                   mark = new google.maps.Marker({
                                     position: { lat: parseFloat(jsonResponse[j]["latitude"]), lng: parseFloat(jsonResponse[j]["longitude"])},
                                     map: map,
+                                    icon:icon,
                                     title: jsonResponse[j]["title"],
                                     identified: jsonResponse[j]["id"]
                                   });
