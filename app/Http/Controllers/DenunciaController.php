@@ -16,20 +16,21 @@ class DenunciaController extends Controller
     public function all() {
 
         $denuncia = Complaint::all();
-        
         $i = 0;
         foreach ($denuncia as $d) {
-           $categoria = $d::find($d->id)->categories;
 
+           $categoria = Complaint::find($d->id)->categories();
            $array[$i]["id"] = $d->id;
            $array[$i]["title"] = $d->title;
            $array[$i]["comment"] = $d->comment;
            $array[$i]["latitude"] = $d->latitude;
            $array[$i]["longitude"] = $d->longitude;
            $array[$i]["user_id"] = $d->user_id;
-           $array[$i]["category"] = $categoria[0]["name"];
+           $array[$i]["category"] = $categoria;
+
            $i++;
         }
+
 
         echo json_encode($array);
     }
@@ -40,15 +41,14 @@ class DenunciaController extends Controller
 
         $i = 0;
         foreach ($denuncia as $d) {
-           $categoria = $d::find($d->id)->categories;
-
+           $categoria = Complaint::find($d->id)->categories();
            $array[$i]["id"] = $d->id;
            $array[$i]["title"] = $d->title;
            $array[$i]["comment"] = $d->comment;
            $array[$i]["latitude"] = $d->latitude;
            $array[$i]["longitude"] = $d->longitude;
            $array[$i]["user_id"] = $d->user_id;
-           $array[$i]["category"] = $categoria[0]["name"];
+           $array[$i]["category"] = $categoria;
            $i++;
         }
 
@@ -62,15 +62,13 @@ class DenunciaController extends Controller
 
     if ($id) {
         $denuncia = Complaint::find($id);
-        $category = $denuncia::find($denuncia->id)->categories;
-        
-        $array["id"] = $denuncia->id;
+        $category = Complaint::find($denuncia->id)->categories();
+
         $array["title"] = $denuncia->title;
         $array["comment"] = $denuncia->comment;
         $array["position"] = $denuncia->latitude.", ".$denuncia->longitude;
         $array["data"] = $denuncia->created_at;
-        $array["user_id"] = $denuncia->user_id;
-        $array["category"] = $category[0]["name"];
+        $array["category"] = $category;
 
         echo json_encode($array);
     } else {
@@ -229,22 +227,9 @@ class DenunciaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) {
+    public function destroy($id)
+    {
         $denuncia = Complaint::find($id);
-        $denuncia->categories()->detach();
-        $denuncia->delete();
-
-
-        return redirect('/dashboard');
-    }
-
-    public function destroyModal() {
-
-        $id = $_POST['id'];
-
-        $denuncia = Complaint::find($id);
-
-        
         $denuncia->categories()->detach();
         $denuncia->delete();
 
