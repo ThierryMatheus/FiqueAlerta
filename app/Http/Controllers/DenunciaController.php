@@ -253,4 +253,20 @@ class DenunciaController extends Controller
 
         return redirect('/dashboard');
     }
+
+    public function editModal(Request $request) {
+    
+        $id = $_POST['id'];
+
+
+        $denuncia = Complaint::where('id', $id)->update([
+            'title' => $request->input('title'),
+            'comment' => $request->input('comment'),
+            'latitude' => $request->input('latitude'),
+            'longitude' => $request->input('longitude')
+        ]);
+        
+        return redirect('/dashboard');
+
+    }
 }

@@ -213,29 +213,66 @@
                               var array = response;
                               var user = <?=Auth::user()->id?>;
                               var idDenuncia = array["id"];
-                        
-
-                               
-                            if (user == array["user_id"]) {
-                                 $("#drop").removeClass('hidden');
-                                 $("#idFormodal").val(idDenuncia);
-
-                            } else {
-                                $("#drop").addClass('hidden');
-                            }
 
 
                               $("#title").val(array["title"]);
+                              $("#titleLegend").html(array["title"])
                               $("#commentModal").val(array["comment"]);
                             //   $("#positionModal").html(array["position"]);
                               $("#data").val(array["created_at"]);
                               $("#categoriaModal").val(array["category"]);
                             //   $('#modal-map').html();
+                           
                             console.log({lat: array["position"].split(', ')[0], lng: array["position"].split(', ')[1]})
                               map = new google.maps.Map(document.getElementById("modal-map"), {
                                   center: {lat: +array["position"].split(', ')[0], lng: +array["position"].split(', ')[1]},
                                   zoom: 15,
                               });
+
+                              if (user == array["user_id"]) {
+                                 $("#drop").removeClass('hidden');
+                                 $("#idFormodal").val(idDenuncia);
+                                 $("#idForedit").val(idDenuncia);
+                                 $("input").attr('disabled', true);
+                                 $("#buttonModal").addClass('hidden');
+                                 $("#editPosition").addClass('hidden');
+
+                                 $("#buttonEditModal").click(function(){
+                                    $("input").removeAttr('disabled');
+                                    $("#buttonModal").removeClass('hidden');
+
+                                    $("#editPosition").removeClass('hidden');
+
+                         map.addListener('click', (data) => {
+                            let lat = data.latLng.lat();
+                            let lng = data.latLng.lng();
+                            const modal = document.querySelector('.modal');
+                            const closeModal = document.querySelectorAll('.close-modal');
+                            if (marker && marker.setMap) {
+                                marker.setMap(null)
+                            }
+                            marker = new google.maps.Marker({
+                                position: {lat, lng},
+                                map: map,
+                                title: lat + " , " + lng,
+                            });
+                            
+                            var inputLat = document.getElementById("latitudeModal");
+                            var inputLng = document.getElementById("longitudeModal");
+                            //map.style.display = 'none';
+                            inputLat.value = lat;
+                            inputLng.value = lng;
+                        });
+                                 })
+                        
+
+                            } else {
+                                $("#drop").addClass('hidden');
+                                $("#buttonModal").addClass('hidden');
+                                $("input").attr('disabled', true);
+                                $("#editPosition").addClass('hidden');
+                            }
+
                             }
                          })
                      }
@@ -329,7 +366,7 @@
 
                                     let icon = {
                                     url :  `{{ asset('icons') }}/${json[i]["category_id"]}.png`,
-                                   scaledSize : new google.maps.Size (30,50)
+                                   scaledSize : new google.maps.Size (50,60)
                                         }
 
                                     var contentString = "<h1>"+json[i]["title"]+"</h1>";
@@ -404,7 +441,7 @@
                               for (var j = 0; j < myJson.length; j++) {
                                 let icon = {
                                     url :  `{{ asset('icons') }}/${myJson[j]["category_id"]}.png`,
-                                   scaledSize : new google.maps.Size (30,50)
+                                   scaledSize : new google.maps.Size (50,60)
                                         }
                                   mark = new google.maps.Marker({
                                     position: { lat: parseFloat(myJson[j]["latitude"]), lng: parseFloat(myJson[j]["longitude"])},
@@ -460,7 +497,7 @@
 
                                 let icon = {
                                     url :  `{{ asset('icons') }}/${jsonResponse[j]["category_id"]}.png`,
-                                   scaledSize : new google.maps.Size (30,50)
+                                   scaledSize : new google.maps.Size (50,60)
                                         }
 
                                   mark = new google.maps.Marker({
@@ -533,8 +570,14 @@
                                                 <button type="submit" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</button>
                                             </form>
                                 </x-slot>
-                      </x-dropdown> 
-                      </div>         
+
+                             <x-slot name="slot">
+                              <button type="button" id="buttonEditModal">Editar</button>
+                            </x-slot>
+                          
+                      </x-dropdown>  
+                      </div>
+                               
 
 
                 <h3 class=""></h3>
@@ -559,25 +602,62 @@
                                 </div>
                             @endif
                          <div class="container-md p-4">
-                         <div class="text-2xl">
-                         <label>Titulo: </label>    
-                         <input class="text-center" id="title">
-                         </div>
+                         <form action="{{ route('editOnmodal') }}" method="POST">
+                    @csrf
+                    
+                    <fieldset>
 
-                         <div class="border mt-3">
-                         <input class="text-center">Descrição: <input id="commentModal">
-                         </div>
+                        <legend class="text-center text-2xl mb-8" id="titleLegend"></legend>
 
-                         <div class="mt-3">
-                         <input class="text-center" id="categoriaModal">
-                         </div>
-                         <div class="mt-3">
+                        <div class="items-center justify-end mt-4">
+                            <x-label class="pr-2">Título:</x-label>
+                            <div class="border-b border-b-4 border-black w-full mt-4">
+                                <x-input type="text" name="title" id="title"
+                                         class="block mt-1 w-full pb-6" required/>
+                            </div>
+                        </div>
+
+                        <div class="items-center justify-end mt-8">
+                            <x-label class="pr-2">Comentário:</x-label>
+                            <div class="border-b border-b-4 border-black w-full">
+                                <textarea type="text" name="comment" id="commentModal"
+                                          class="block mt-1 w-full border-none bg-transparent pl-0 pb-0 font-light resize-none"
+                                          required></textarea>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="border-b border-b-4 border-black w-full mt-4">
+                                <x-input type="hidden" name="id" id="idForedit"
+                                         class="block mt-1 w-full pb-6" required/>
+                            </div>
+                        </div>
+
+
+                        <div class="hidden">
+                            <x-label class="pr-2">Latitude:</x-label>
+                            <x-input type="hidden" name="latitude" id="latitudeModal" class=""
+                                     required/>
+                        </div>
+                        <div class="hidden">
+                            <x-label class="pr-2">Longitude:</x-label>
+                            <x-input type="hidden" name="longitude" id="longitudeModal" class=""
+                                     required/>
+                        </div>
+
+                    </fieldset>
+
+
+                    <div class="mt-3">
+                         <p class="text-center" id="editPosition">Clique no mapa para editar a posição.</p>
                          {{-- <p class="text-center" id="positionModal"></p> --}}
                          <div id="modal-map" style="height: 300px; width:550px; display: block;"></div>
                          </div>
-                         <div class="mt-3">
-                         <p  class="text-center" id="data"></p>
-                         </div>
+
+                    <div class="flex justify-center mt-8" id="buttonModal">
+                        <x-button>Enviar</x-button>
+                    </div>
+                </form>
                         </div>
                         </div>
                     </div>

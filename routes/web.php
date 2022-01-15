@@ -35,6 +35,7 @@ Route::group(['middleware' => ['auth', 'company_registration_completed']], funct
     Route::get('/myDenuncia', [DenunciaController::class, 'my'])->name('denuncia_my');
     Route::get('/forModal/{id}', [DenunciaController::class, 'forModal'])->name('denuncia_forModal');
     Route::post('/deleteForModal', [DenunciaController::class, 'destroyModal'])->name('deleteOnmodal');
+    Route::post('/editForModal', [DenunciaController::class, 'editModal'])->name('editOnmodal');
 });
 
 
