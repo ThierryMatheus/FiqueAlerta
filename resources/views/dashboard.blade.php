@@ -229,21 +229,21 @@
                                   zoom: 15,
                               });
 
-                              if (user == array["user_id"]) {
+                              if (user == array["user_id"]) { // se o meu id for igual ao id de usuario da denuncia
                                  $("#drop").removeClass('hidden');
                                  $("#idFormodal").val(idDenuncia);
                                  $("#idForedit").val(idDenuncia);
-                                 $("input").attr('disabled', true);
+                                 $("input").attr('readonly', true);
                                  $("#buttonModal").addClass('hidden');
                                  $("#editPosition").addClass('hidden');
 
-                                 $("#buttonEditModal").click(function(){
+                                 $("#buttonEditModal").click(function(){ // no botão editar do dropdown libera os inputs e adiciona uma escuta no mapa do modal
                                     $("input").removeAttr('disabled');
                                     $("#buttonModal").removeClass('hidden');
 
                                     $("#editPosition").removeClass('hidden');
 
-                         map.addListener('click', (data) => {
+                         map.addListener('click', (data) => { // escuta que adiciona marcadores no mapa do modal
                             let lat = data.latLng.lat();
                             let lng = data.latLng.lng();
                             const modal = document.querySelector('.modal');
@@ -260,14 +260,14 @@
                             var inputLat = document.getElementById("latitudeModal");
                             var inputLng = document.getElementById("longitudeModal");
                             //map.style.display = 'none';
-                            inputLat.value = lat;
-                            inputLng.value = lng;
+                            inputLat.value = lat; // coloca latitude no input
+                            inputLng.value = lng; //coloca longitude no input
                         });
                                  })
                         
 
-                            } else {
-                                $("#drop").addClass('hidden');
+                            } else { // se der false, trava todas as opçoes do modal
+                                $("#drop").addClass('hidden'); 
                                 $("#buttonModal").addClass('hidden');
                                 $("input").attr('disabled', true);
                                 $("#editPosition").addClass('hidden');
@@ -286,6 +286,10 @@
                             zoom: 13,
                         });
                         map.addListener('click', (data) => {
+                            let icon = {
+                                    url :  `{{ asset('icons/mblue.png')}} `,
+                                   scaledSize : new google.maps.Size (50,60)
+                                        }
                             let lat = data.latLng.lat();
                             let lng = data.latLng.lng();
                             const modal = document.querySelector('.modal');
@@ -294,8 +298,10 @@
                                 marker.setMap(null)
                             }
                             marker = new google.maps.Marker({
+
                                 position: {lat, lng},
                                 map: map,
+                                icon:icon,
                                 title: lat + " , " + lng,
                             });
                             /* logica do modal */
@@ -565,7 +571,6 @@
                                 <x-slot name="content" class="w-0">
                                         <form action="{{ route('deleteOnmodal') }}" method="POST" class="text-left block px-3 py-2 text-sm leading-5 text-gray-600 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
                                                 @csrf
-                                                
                                                 <input type="hidden" name="id" id="idFormodal">
                                                 <button type="submit" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</button>
                                             </form>
