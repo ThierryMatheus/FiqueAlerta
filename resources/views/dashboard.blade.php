@@ -73,27 +73,6 @@
                                             </textarea>
                                         </div>
                                     </div>
-                                    <div class="flex justify-center mt-8 mb-2">
-                                        <div class="max-w-2xl rounded-lg">
-                                                <div class="flex items-center justify-center w-full">
-                                                    <label
-                                                        class="flex flex-col w-full border-2 border-gray-600 border-dashed">
-                                                        <div class="flex flex-col items-center justify-center pt-6">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-gray-600"
-                                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                                                            </svg>
-                                                            <p class="pt-1 text-sm tracking-wider text-gray-600">Anexar arquivo</p>
-                                                        </div>
-                                                        <input type="file" class="opacity-0" />
-                                                    </label>
-                                                </div>
-                                        </div>
-                                    </div>
-
-                                    <!--Ajustar o formulário para que essas informações que estão
-                                        comentadas sejam salvas pelo código e não mostrem na tela-->
 
                                     <div class="hidden">
                                         <x-label class="pr-2">Latitude:</x-label>
@@ -108,7 +87,7 @@
 
                                 </fieldset>
                                 <div class="categoriesSelected flex space-x-4"></div>
-                                <div class="flex mt-4 justify-center">
+                                <div class="flex mt-8 justify-center">
                                     <button class="text-sm text-white bg-blue-750 rounded-md p-1 px-8 text-sm font-bold">Enviar denúncia</button>
                                 </div>
                             </form>
@@ -127,12 +106,12 @@
             <div class="pr-6 pt-8 pl-7">
                 <h3 class="font-bold pb-10 text-xl">Filtros</h3>
 
-                <div>
+                <div class="text-sm font-light pb-3 mt-1">
                 <label>Todas as Denúncias</label>
-                <input type="checkbox" id="buttonRadioAll" onclick="filtroAll();" checked>
+                <input type="checkbox" id="buttonRadioAll" onclick="filtroAll();" class="mr-1 rounded border-2 border-gray-500 text-gray-700" checked>
                 </div>
 
-                <div>
+                <div class="text-sm font-light pb-3 pt-4">
                     @php
                         if (Auth::user()->complaint->isEmpty()) {
                             $disabled = true;
@@ -141,29 +120,18 @@
                         }
                     @endphp
                     <label class="{{ $disabled ? 'text-gray-400' : ''}}">Minhas Denúncias</label>
-                    <input type="checkbox" {{ $disabled ? 'disabled' : '' }} id="buttonRadio" onclick="myComplaint();">
+                    <input type="checkbox" {{ $disabled ? 'disabled' : '' }} class="mr-1 rounded border-2 border-gray-500 text-gray-700" id="buttonRadio" onclick="myComplaint();">
                 </div>
 
-                <div class="mt-3">
-                    <p class="text-sm font-light pb-2 ">Localização</p>
-                    <div class="border-b border-b-4 border-black">
-                        <select name="type" id="type" class="block pt-0 border-none bg-transparent pr-56 pl-0 pb-0 font-light text-sm">
-                            <option value="1"></option>
-                            <option value="2"></option>
-                            <option value="3"></option>
-                        </select>
-                    </div>
-                </div>
-
-                <div>
-                    <p class="text-sm font-light pb-3 pt-8">Distancia</p>
+                <div class="text-sm font-light pb-3 pt-4">
+                    <label>Distancia</label>
                     <div>
                         <input id="zoom" type="range" min="8" max="24" value="13" step="1" class="w-full" onchange="zoomMap()">
                     </div>
                 </div>
 
-                <div>
-                    <p class="text-sm font-light pb-3 pt-8">Categoria</p>
+                <div class="text-sm font-light pb-3 pt-2">
+                    <label>Categoria</label>
                     <div class="border-b border-b-4 border-black">
                         <select name="type" id="type" class="block pt-0 border-none bg-transparent pr-56 pl-0 pb-0 font-light text-sm">
                             <option value="1"></option>
@@ -173,19 +141,6 @@
                     </div>
                 </div>
 
-                <div>
-                    <p class="text-sm font-light pb-2 pt-8">Empresa</p>
-                    <div class="flex mt-3">
-                        <div class="flex w-full">
-                            <input type="checkbox" class="mr-1 rounded border-2 border-gray-700 text-gray-700">
-                            <p class="text-xs">Públicas</p>
-                        </div>
-                        <div class="flex">
-                            <input type="checkbox" class="mr-1 rounded border-2 border-gray-700 text-gray-700">
-                            <p class="text-xs mr-5">Privadas</p>
-                        </div>
-                    </div>
-                </div>
                 <div class="mt-16 ml-12">
                     <button class="text-sm text-white bg-blue-750 rounded-md p-1 px-10 text-sm font-bold">Aplicar</button>
                 </div>
@@ -572,15 +527,15 @@
                                 </x-slot>
             
                                 <x-slot name="content" class="w-0">
-                                        <form action="{{ route('deleteOnmodal') }}" method="POST" class="text-left block px-3 py-2 text-sm leading-5 text-gray-600 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
+                                        <form action="{{ route('deleteOnmodal') }}" method="POST" class="text-left block px-3 py-2 text-sm leading-5 text-gray-600 transition duration-150 ease-in-out">
                                                 @csrf
                                                 <input type="hidden" name="id" id="idFormodal">
                                                 <button type="submit" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</button>
                                             </form>
                                 </x-slot>
 
-                             <x-slot name="slot">
-                              <button type="button" id="buttonEditModal">Editar</button>
+                             <x-slot name="slot" class="w-full">
+                              <button type="button" id="buttonEditModal" class="px-3 py-2 text-sm text-gray-600">Editar</button>
                             </x-slot>
                           
                       </x-dropdown>  
@@ -596,7 +551,7 @@
                 </button>
             </div>
             <!-- modal body -->
-            <div class="py-3 px-7" id="modal">
+            <div id="modal">
                 <div class="max-w-5xl mx-auto" id="form">
                     <div class="bg-white rounded shadow-sm">
                         <div class="pl-10 pr-10 pb-8">
@@ -609,7 +564,7 @@
                                     </ul>
                                 </div>
                             @endif
-                         <div class="container-md p-4">
+                         <div class="container-md">
                          <form action="{{ route('editOnmodal') }}" method="POST">
                     @csrf
                     
@@ -635,7 +590,7 @@
                         </div>
 
                         <div>
-                            <div class="border-b border-b-4 border-black w-full mt-4">
+                            <div class="w-full mt-4">
                                 <x-input type="hidden" name="id" id="idForedit"
                                          class="block mt-1 w-full pb-6" required/>
                             </div>
