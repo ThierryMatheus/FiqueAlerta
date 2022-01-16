@@ -233,13 +233,16 @@
                                  $("#drop").removeClass('hidden');
                                  $("#idFormodal").val(idDenuncia);
                                  $("#idForedit").val(idDenuncia);
-                                 $("input").attr('readonly', true);
+                                 $("#title").attr('disabled', true);
+                                 $("#commentModal").attr('disabled', true);
                                  $("#buttonModal").addClass('hidden');
                                  $("#editPosition").addClass('hidden');
 
                                  $("#buttonEditModal").click(function(){ // no botão editar do dropdown libera os inputs e adiciona uma escuta no mapa do modal
                                     $("input").removeAttr('disabled');
                                     $("#buttonModal").removeClass('hidden');
+                                    $("#title").removeAttr('disabled', true);
+                                    $("#commentModal").removeAttr('disabled', true);
 
                                     $("#editPosition").removeClass('hidden');
 
