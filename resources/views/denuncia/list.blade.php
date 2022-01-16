@@ -53,8 +53,8 @@
                             <td class="font-semibold mt-1 text-sm text-left py-3">{{$categoria->name}}</td>
                         @endforeach
 
-                        <td class="font-semibold mt-1 text-sm text-left py-3">{{$denuncia->created_at}}</td>
-                        <td class="text-center mt-1 py-3">{{$denuncia->created_at}}</td>
+                        <td class="font-semibold mt-1 text-sm text-left py-3">{{$denuncia->created_at->format('d/m/y')}}</td>
+                        <td class="text-center mt-1 py-3">{{$denuncia->created_at->format('h:i:s')}}</td>
 
                         <td class="py-3 px-7">
                             
