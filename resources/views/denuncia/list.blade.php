@@ -7,9 +7,9 @@
         </div>
     </x-slot>
 
-<div class="flex flex-col bg-white">
-    <div class="flex flex-col max-w-5xl ml-14 mt-5">
-        <div class="align-middle inline-block min-w-full ml-8">
+<div class=" container">
+    <div class="max-w-5xl ml-14 mt-5">
+        <div class="align-middle inline-block ml-8">
             <div class="overflow-auto" style="height: 430px;">
             <table class="border-gray-200 w-full">
                 <thead>
@@ -27,7 +27,7 @@
                         </div>
                     </th>
                 </tr>
-                <tr class="grid gap-32 grid-cols-6 border-b border-b-4 border-gray-200">
+                <tr class="grid gap-32 grid-cols-6 border-b border-b-4 border-gray-200 pl-3">
                     <th class="font-medium mt-1 text-sm text-left text-gray-500 py-3">Título</th>
                     <th class="font-medium mt-1 text-sm text-left text-gray-500 py-3">Descrição</th>
                     <th class="font-medium mt-1 text-sm text-left text-gray-500 py-3">Categoria</th>
@@ -40,21 +40,21 @@
                 <tbody class="pt-8">
                 @foreach(Auth::user()->Complaint as $denuncia)
 
-                    <tr class="border-b border-b-4 border-gray-200 py-3">
+                    <tr class="grid gap-32 grid-cols-6 border-b border-b-4 border-gray-200 pl-3">
 
-                        <td class="text-center mt-1 py-3">{{$denuncia->title}}</td>
-                        <td class="text-center mt-1 py-3">{{$denuncia->comment}}</td>
+                        <td class="font-semibold mt-1 text-sm text-left py-3">{{$denuncia->title}}</td>
+                        <td class="font-semibold mt-1 text-sm text-left py-3">{{$denuncia->comment}}</td>
 
                         @php 
                         $categorias = $denuncia::find($denuncia->id)->categories;
                         @endphp
 
                         @foreach($categorias as $categoria)
-                            <td class="text-center mt-1 py-3">{{$categoria->name}}</td>
+                            <td class="font-semibold mt-1 text-sm text-left py-3">{{$categoria->name}}</td>
                         @endforeach
 
-                        <td class="text-center mt-1 py-3">{{$denuncia->claim_date}}</td>
-                        {{--<td class="text-center mt-1 py-3">{{$denuncia->}}</td>--}}
+                        <td class="font-semibold mt-1 text-sm text-left py-3">{{$denuncia->created_at->format('d/m/y')}}</td>
+                        <td class="text-center mt-1 py-3">{{$denuncia->created_at->format('h:i:s')}}</td>
 
                         <td class="py-3 px-7">
                             

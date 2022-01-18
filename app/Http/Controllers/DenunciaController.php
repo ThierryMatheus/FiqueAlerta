@@ -16,8 +16,69 @@ class DenunciaController extends Controller
     public function all() {
 
         $denuncia = Complaint::all();
+        
+        $i = 0;
+        foreach ($denuncia as $d) {
+           $categoria = $d::find($d->id)->categories;
 
-        echo json_encode($denuncia);
+           $array[$i]["id"] = $d->id;
+           $array[$i]["title"] = $d->title;
+           $array[$i]["comment"] = $d->comment;
+           $array[$i]["latitude"] = $d->latitude;
+           $array[$i]["longitude"] = $d->longitude;
+           $array[$i]["user_id"] = $d->user_id;
+           $array[$i]["category"] = $categoria[0]["name"];
+           $array[$i]["category_id"] = $categoria[0]["id"];
+           $i++;
+        }
+
+        echo json_encode($array);
+    }
+
+    public function my() {
+        
+        $denuncia = Auth::user()->complaint;
+
+        $i = 0;
+        foreach ($denuncia as $d) {
+           $categoria = $d::find($d->id)->categories;
+
+           $array[$i]["id"] = $d->id;
+           $array[$i]["title"] = $d->title;
+           $array[$i]["comment"] = $d->comment;
+           $array[$i]["latitude"] = $d->latitude;
+           $array[$i]["longitude"] = $d->longitude;
+           $array[$i]["category_id"] = $categoria[0]["id"];
+           $array[$i]["user_id"] = $d->user_id;
+           $array[$i]["category"] = $categoria[0]["name"];
+           $i++;
+        }
+
+        echo json_encode($array);
+    }
+
+
+
+    public function forModal($id){
+   
+
+    if ($id) {
+        $denuncia = Complaint::find($id);
+        $category = $denuncia::find($denuncia->id)->categories;
+        
+        $array["id"] = $denuncia->id;
+        $array["title"] = $denuncia->title;
+        $array["comment"] = $denuncia->comment;
+        $array["position"] = $denuncia->latitude.", ".$denuncia->longitude;
+        $array["data"] = $denuncia->created_at;
+        $array["user_id"] = $denuncia->user_id;
+        $array["category"] = $category[0]["name"];
+
+        echo json_encode($array);
+    } else {
+        echo "erro";
+    }
+
     }
 
     /**
@@ -170,13 +231,42 @@ class DenunciaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         $denuncia = Complaint::find($id);
         $denuncia->categories()->detach();
         $denuncia->delete();
 
 
         return redirect('/dashboard');
+    }
+
+    public function destroyModal() {
+
+        $id = $_POST['id'];
+
+        $denuncia = Complaint::find($id);
+
+        
+        $denuncia->categories()->detach();
+        $denuncia->delete();
+
+
+        return redirect('/dashboard');
+    }
+
+    public function editModal(Request $request) {
+    
+        $id = $_POST['id'];
+
+
+        $denuncia = Complaint::where('id', $id)->update([
+            'title' => $request->input('title'),
+            'comment' => $request->input('comment'),
+            'latitude' => $request->input('latitude'),
+            'longitude' => $request->input('longitude')
+        ]);
+        
+        return redirect('/dashboard');
+
     }
 }

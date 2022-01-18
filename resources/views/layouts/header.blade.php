@@ -29,7 +29,7 @@
                                 </svg>
                             </a>
 
-                                <x-dropdown>
+                                <x-dropdown width="auto">
                                     <x-slot name="trigger">
                                         <button>
                                             <svg class="w-full mt-1" width="25" height="25" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -39,13 +39,18 @@
                                     </x-slot>
 
                                     <x-slot name="content">
+                                        <div class="px-4">
+                                            <div class="font-medium text-base text-gray-600">{{ explode(' ', Auth::user()->name)[0] }}</div>
+                                        </div>
                                         <!-- Authentication -->
                                         <form method="POST" action="{{ route('logout') }}">
                                             @csrf
 
                                             <x-dropdown-link :href="route('logout')"
                                                     onclick="event.preventDefault();
-                                                                this.closest('form').submit();">
+                                                                this.closest('form').submit();"
+                                                    class="text-blue-800 font-bold"
+                                                    >
                                                 {{ __('Sair') }}
                                             </x-dropdown-link>
                                         </form>
@@ -86,7 +91,6 @@
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-
                             <x-responsive-nav-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">

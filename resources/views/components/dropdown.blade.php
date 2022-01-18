@@ -18,6 +18,9 @@ switch ($width) {
     case '48':
         $width = 'w-20';
         break;
+    case 'auto':
+        $width = 'w-auto';
+        break;
 }
 @endphp
 
@@ -38,6 +41,9 @@ switch ($width) {
             @click="open = false">
         <div class="rounded-md ring-1 ring-black ring-opacity-5 {{ $contentClasses }}">
             {{ $content }}
+        </div>
+        <div class="rounded-md ring-1 ring-black ring-opacity-5 {{ $contentClasses }}">
+            {{ $slot }}
         </div>
     </div>
 </div>
